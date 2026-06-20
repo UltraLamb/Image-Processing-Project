@@ -481,7 +481,7 @@ README.md & project overview, setup, and reproduction path \\
 DATASET.md & explains Gymnasium CarRacing-v3 data generation \\
 requirements.txt & Python packages needed for notebook execution \\
 notebooks/ & cleaned Colab notebook with training and evaluation code \\
-report/ & IEEE-style LaTeX source and local PDF preview \\
+report/ & IEEE-style LaTeX source and compiled report PDF \\
 slides/ & final presentation deck \\
 tables/ & COMPARE5, RANDOM10, and summary CSV evidence \\
 figures/ & training curve, reward chart, method schematic, qualitative frames \\
@@ -500,14 +500,14 @@ The repository URL is \url{https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatu
 
 Version consistency is another reproducibility risk. The method depends on Gymnasium CarRacing-v3 visual output, the HSV threshold constants, the ray origin, VecNormalize statistics, and Stable-Baselines3 PPO behavior. A future run with different package versions may still execute but produce slightly different masks, normalization, or rewards. For final grading, the saved artifact package and CSV-backed evaluation tables should therefore be treated as the evidence for this submitted run.
 
-For a strict IEEE-formatted final PDF, the LaTeX source and figure folder should be uploaded to Overleaf and compiled there. The local PDF in the submission package is a preview generated because no local LaTeX compiler is available in this workspace. The source file remains the formal report source, while the preview PDF is provided so the course platform has a ready-to-open document.
+The formal report PDF was compiled from the included IEEE-style LaTeX source. The repository includes the source files and figures needed to rebuild the report.
 
 \begin{thebibliography}{6}
 \bibitem{ref1} Farama Foundation, ``CarRacing-v3,'' Gymnasium documentation. [Online]. Available: \url{https://gymnasium.farama.org/environments/box2d/car_racing/}
 \bibitem{ref2} J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, ``Proximal Policy Optimization Algorithms,'' arXiv:1707.06347, 2017.
 \bibitem{ref3} Stable-Baselines3 Developers, ``PPO,'' Stable-Baselines3 documentation. [Online]. Available: \url{https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html}
 \bibitem{ref4} Stable-Baselines3 Developers, ``Custom Policy Network,'' Stable-Baselines3 documentation. [Online]. Available: \url{https://stable-baselines3.readthedocs.io/en/master/guide/custom_policy.html}
-\bibitem{ref5} DLR-RM, ``RL Baselines3 Zoo PPO hyperparameters,'' GitHub repository file. [Online]. Available: \url{https://raw.githubusercontent.com/DLR-RM/rl-baselines3-zoo/master/hyperparams/ppo.yml}
+\bibitem{ref5} DLR-RM, ``RL Baselines3 Zoo PPO hyperparameters,'' GitHub repository file. [Online]. Available: \url{https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/ppo.yml}
 \bibitem{ref6} OpenCV Developers, ``Changing Colorspaces,'' OpenCV documentation. [Online]. Available: \url{https://docs.opencv.org/4.x/df/d9d/tutorial_py_colorspaces.html}
 \end{thebibliography}
 
