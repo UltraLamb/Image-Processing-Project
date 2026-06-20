@@ -1,0 +1,6 @@
+seed,seed_type,raw_reward,shaped_reward,episode_frames,done_reason,steer_delta_mean,steer_abs_mean,gas_mean,brake_mean,first_frame_hash,tile_bonus_total,tile_bonus_mean
+42,compare5,250.42,219.05,232,offroad_timeout,0.4451,0.6132,0.4306,0.0303,d54c877f15a9,0.0,0.0
+123,compare5,210.82,191.5,126,offroad_timeout,0.3888,0.5955,0.5317,0.0362,a3546d564073,0.0,0.0
+777,compare5,895.95,853.35,393,offroad_timeout,0.4039,0.6587,0.4867,0.0349,297efc10459e,0.0,0.0
+999,compare5,795.11,761.96,359,offroad_timeout,0.4012,0.67,0.4849,0.0388,bf134fc86169,0.0,0.0
+2026,compare5,893.33,888.57,500,env_done,0.424,0.7009,0.5209,0.042,5cbf25772529,0.0,0.0

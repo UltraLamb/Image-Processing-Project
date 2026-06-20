@@ -1,0 +1,7 @@
+gymnasium[box2d]
+stable-baselines3>=2.5.0
+opencv-python-headless
+numpy
+pandas
+torch
+matplotlib
