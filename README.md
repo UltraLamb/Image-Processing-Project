@@ -8,6 +8,8 @@ Student ID: 1103820
 
 This project trains a PPO agent for Gymnasium CarRacing-v3 using compact road-mask ray features. The notebook converts each RGB frame into a HSV road mask, casts dynamic ray distances, stacks four 14D observations into a 56D vector, and trains Stable-Baselines3 PPO with MlpPolicy for 500,000 timesteps.
 
+This repository is the final GitHub submission package for the project.
+
 ## Main Results
 
 - COMPARE5 mean raw reward: 609.1
@@ -18,14 +20,20 @@ This project trains a PPO agent for Gymnasium CarRacing-v3 using compact road-ma
 ## Repository Contents
 
 - `notebooks/CarRacingV3_PPO_Final_Submission.ipynb`: clean Colab notebook.
-- `report/CarRacingV3_PPO_Final_Report.tex`: IEEE LaTeX source (compile in Overleaf).
+- `report/CarRacingV3_PPO_Final_Report.tex`: IEEE-style LaTeX source.
 - `report/CarRacingV3_PPO_Final_Report.pdf`: compiled IEEE-format report.
-- `report/CarRacingV3_PPO_Final_Report.docx`: Word backup copy.
-- `slides/CarRacingV3_PPO_Final_Presentation.pptx`: class presentation.
+- `slides/CarRacingV3_PPO_Final_Presentation_REBUILT.pptx`: final class presentation.
+- `artifacts/CarRacingV3_PPO_Final_Submission.zip`: saved model, VecNormalize statistics, evaluation data, and videos.
 - `tables/`: evaluation CSV files.
 - `figures/`: reward chart and extracted video evidence frames.
 - `DATASET.md`: dataset/environment notes.
 - `requirements.txt`: Python dependencies.
+
+## Reproduction Path
+
+Use the notebook for the executable workflow. The artifact zip contains the saved model-related files and videos used for final reporting, so the reported evaluation can be inspected without retraining.
+
+No external dataset is used; see `DATASET.md` for the environment-generated data description.
 
 ## Installation
 
