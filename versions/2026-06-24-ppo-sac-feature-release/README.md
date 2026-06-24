@@ -15,10 +15,10 @@ PPO/SAC feature-based result package as a separate version.
 
 ## Headline Results
 
-| Branch | Status | Validated eval | Best eval | Last observed step |
-|---|---|---:|---:|---:|
-| PPO V9 | completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | 939.53 +/- 4.09 @ 480,000 | 501,760 |
-| SAC V11.1 | 400K best-checkpoint / partial-run fast result | 938.51 +/- 4.88 @ 400,000 | 938.51 +/- 4.88 @ 400,000 | 418,697 |
+| Branch    | Status                                         | Validated eval            | Best eval                 | Last observed step |
+| --------- | ---------------------------------------------- | ------------------------: | ------------------------: | -----------------: |
+| PPO V9    | completed 500K baseline                        | 938.87 +/- 7.86 @ 500,000 | 939.53 +/- 4.09 @ 480,000 | 501,760            |
+| SAC V11.1 | 400K best-checkpoint / partial-run fast result | 938.51 +/- 4.88 @ 400,000 | 938.51 +/- 4.88 @ 400,000 | 418,697            |
 
 The SAC result is not a completed 500K run and is not presented as beating PPO.
 It is evidence that the same compact feature pipeline can support a strong
