@@ -1,0 +1,7 @@
+branch,split_or_metric,evidence_level,mean_std,min_max,ci_95,source_evidence
+PPO V9,COMPARE5,notebook-output evidence,924.6 +/- 6.8,not found in provided files,not found in provided files,Final_PPO_Baseline_CarRacing_v3.ipynb embedded output
+PPO V9,RANDOM10,notebook-output evidence,926.4 +/- 7.3,911.2 / 936.0,not found in provided files,Final_PPO_Baseline_CarRacing_v3.ipynb embedded output
+PPO V9,bootstrap,notebook-output evidence,925.8 +/- 6.7,911.2 / 936.0,"[922.2, 929.0]",Final_PPO_Baseline_CarRacing_v3.ipynb embedded output
+SAC V11.1,COMPARE5,notebook-output evidence,923.3 +/- 7.7,not found in provided files,not found in provided files,Final_SAC_Fast_Result_CarRacing_v3.ipynb embedded output
+SAC V11.1,RANDOM10,notebook-output evidence,925.3 +/- 8.2,908.7 / 933.7,not found in provided files,Final_SAC_Fast_Result_CarRacing_v3.ipynb embedded output
+SAC V11.1,bootstrap,notebook-output evidence,924.6 +/- 7.5,908.7 / 933.7,"[920.7, 928.2]",Final_SAC_Fast_Result_CarRacing_v3.ipynb embedded output

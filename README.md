@@ -1,5 +1,13 @@
 # Sample-Efficient PPO for CarRacing-v3 Using Road-Mask Ray Features
 
+## Versions
+
+- **V1 original course submission:** this repository root. PPO-only ray-feature
+  project with 14D observations stacked to 56D.
+- **V2 PPO/SAC feature release:** [`versions/2026-06-24-ppo-sac-feature-release/`](versions/2026-06-24-ppo-sac-feature-release/)
+  adds the later PPO V9 completed 500K baseline and SAC V11.1 validated 400K
+  fast-result branch without replacing the original submission.
+
 ## Overview
 
 This repository contains a reproducible CarRacing-v3 PPO project built around deterministic road-mask ray features. Instead of training PPO directly on 96x96 RGB pixels, the environment wrapper converts each frame into a compact road-geometry vector, allowing Stable-Baselines3 PPO with `MlpPolicy` to train on a 56D stacked observation.
