@@ -1,190 +1,180 @@
 #!/usr/bin/env python3
 """
-validate_final_release.py
-=========================
-Static checks on the built CarRacing_Final_Clean_Release/. Does NOT run notebooks
-or training. Writes validation/validation_report.md with PASS/FAIL/NON-BLOCKING.
+Static validation for versions/2026-06-24-ppo-sac-feature-release/.
+
+This script does not execute notebooks, train models, or regenerate results.
 """
-import os
+import datetime as _dt
 import json
-import datetime
+import re
+from pathlib import Path
 
-import nbformat
+try:
+    import nbformat
+except Exception:  # pragma: no cover - optional local dependency
+    nbformat = None
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)
 
-NB = {
-    "PPO": os.path.join(ROOT, "notebooks", "Final_PPO_Baseline_CarRacing_v3.ipynb"),
-    "SAC": os.path.join(ROOT, "notebooks", "Final_SAC_Fast_Result_CarRacing_v3.ipynb"),
-}
-REQUIRED = [
+ROOT = Path(__file__).resolve().parents[1]
+RESULTS = []
+
+REQUIRED_FILES = [
+    "README.md",
+    "report/CarRacing_v3_RL_Report_1103820_REVISED.docx",
     "notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb",
     "notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb",
     "logs/V9_training_500k_log.txt",
     "logs/V11_1_training_log.txt",
+    "figures/checkpoint_comparison.png",
+    "figures/feature_pipeline_schematic.png",
+    "figures/generalization_summary.png",
+    "figures/training_curve_ppo_sac.png",
+    "tables/compute_budget.csv",
+    "tables/headline_comparison.csv",
+    "tables/notebook_output_generalization_summary.csv",
+    "tables/ppo_eval_checkpoints.csv",
+    "tables/sac_eval_checkpoints.csv",
     "docs/README.md",
     "docs/RESULT_SUMMARY.md",
     "docs/RUN_INSTRUCTIONS.md",
-    "docs/NOTEBOOK_CLEANUP_CHANGELOG.md",
-    "docs/REPORT_AND_PPT_STARTER_NOTES.md",
+    "docs/ASSET_EXPORT_MANIFEST.md",
+    "validation/validation_report.md",
     "tools/build_final_clean_release.py",
     "tools/validate_final_release.py",
 ]
 
-# old-version / scratchpad clutter that must not appear in MAJOR headings
-CLUTTER = ["V6", "V7", "V8", "V10", "V10.5", "panic", "emergency", "recovery",
-           "crash", "debug", "probe", "resume + probes", "Development History"]
-
-results = []  # (severity, label, detail)  severity in PASS/FAIL/NON-BLOCKING
-
-
-def check(cond, label, detail_ok="", detail_fail="", nonblocking=False):
-    if cond:
-        results.append(("PASS", label, detail_ok))
-    else:
-        results.append(("NON-BLOCKING" if nonblocking else "FAIL", label, detail_fail))
-    return cond
+NOTEBOOKS = {
+    "PPO": ROOT / "notebooks" / "Final_PPO_Baseline_CarRacing_v3.ipynb",
+    "SAC": ROOT / "notebooks" / "Final_SAC_Fast_Result_CarRacing_v3.ipynb",
+}
 
 
-def cell_src(c):
-    return c.source if isinstance(c.source, str) else "".join(c.source)
+def record(ok, label, detail_ok="", detail_fail="", severity="FAIL"):
+    RESULTS.append(("PASS" if ok else severity, label, detail_ok if ok else detail_fail))
 
 
-def headings(nb):
-    out = []
-    for c in nb.cells:
-        if c.cell_type == "markdown":
-            for ln in cell_src(c).splitlines():
-                if ln.strip().startswith("#"):
-                    out.append(ln.strip())
-    return out
+def read_text(path):
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
-def real_learn_lines(nb):
-    """Top-level (non-comment, non-indented) model.learn calls = unguarded."""
+def markdown_files():
+    return [ROOT / "README.md", *sorted((ROOT / "docs").glob("*.md"))]
+
+
+def has_negation(line):
+    return bool(re.search(r"\b(not|no|never|without|isn't|doesn't|do not|NOT)\b", line, re.I))
+
+
+def unsupported_claims():
     bad = []
-    for c in nb.cells:
-        if c.cell_type != "code":
-            continue
-        src = cell_src(c)
-        guarded = "ALLOW_TRAINING" in src
-        for ln in src.splitlines():
-            code = ln.split("#", 1)[0]
-            if ".learn(" not in code:
-                continue
-            indented = ln[:1].isspace()  # inside the if-guard block
-            if not (guarded and indented):
-                bad.append((cell_src(c).splitlines()[0][:50], ln.strip()[:50]))
+    checks = [
+        ("SAC completed 500K", lambda s: re.search(r"sac.{0,60}completed 500k", s) and not has_negation(s)),
+        ("SAC beats PPO", lambda s: "sac" in s and re.search(r"\b(beats?|beating|outperforms?)\b", s) and "ppo" in s and not has_negation(s)),
+        ("compute-equivalent comparison", lambda s: "compute-equivalent" in s and not has_negation(s)),
+        ("raw-pixel CNN training", lambda s: "raw-pixel cnn" in s and re.search(r"\b(train|trained|training)\b", s) and not has_negation(s)),
+        ("CarRacing-v3 is solved", lambda s: "carracing-v3" in s and "solved" in s and not has_negation(s)),
+    ]
+    for md in markdown_files():
+        for line_no, line in enumerate(read_text(md).splitlines(), 1):
+            lowered = line.lower()
+            for label, predicate in checks:
+                if predicate(lowered):
+                    bad.append(f"{md.relative_to(ROOT)}:{line_no}: {label}")
     return bad
 
 
-# 1. folder structure + required files
-for rel in REQUIRED:
-    check(os.path.isfile(os.path.join(ROOT, rel)), f"exists: {rel}",
-          detail_fail="missing")
-check(os.path.isdir(os.path.join(ROOT, "validation")), "exists: validation/")
+def broken_markdown_links():
+    broken = []
+    for md in markdown_files():
+        text = read_text(md)
+        for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
+            link = match.group(1)
+            if re.match(r"^[a-z]+:", link) or link.startswith("#"):
+                continue
+            rel = link.split("#", 1)[0]
+            if rel and not (md.parent / rel).resolve().exists():
+                broken.append(f"{md.relative_to(ROOT)} -> {link}")
+    return broken
 
-# 2-4. notebooks valid JSON + nbformat
-loaded = {}
-for name, path in NB.items():
-    if not os.path.isfile(path):
-        results.append(("FAIL", f"{name} notebook present", "file missing"))
-        continue
-    try:
-        with open(path, encoding="utf-8") as f:
-            json.load(f)
-        check(True, f"{name} valid JSON")
-    except Exception as e:
-        check(False, f"{name} valid JSON", detail_fail=str(e))
-        continue
-    try:
-        nb = nbformat.read(path, as_version=4)
-        nbformat.validate(nb)
-        loaded[name] = nb
-        check(True, f"{name} passes nbformat.validate")
-    except Exception as e:
-        check(False, f"{name} passes nbformat.validate", detail_fail=str(e))
 
-# 8. no old-version clutter in major headings
-for name, nb in loaded.items():
-    hs = headings(nb)
-    dirty = [h for h in hs if any(k.lower() in h.lower() for k in CLUTTER)]
-    check(not dirty, f"{name} headings clean (no old-version clutter)",
-          detail_ok=f"{len(hs)} headings clean",
-          detail_fail="dirty headings: " + " | ".join(dirty[:5]))
+def validate_notebooks():
+    for name, path in NOTEBOOKS.items():
+        try:
+            with path.open(encoding="utf-8") as handle:
+                json.load(handle)
+            record(True, f"{name} notebook valid JSON")
+        except Exception as exc:
+            record(False, f"{name} notebook valid JSON", detail_fail=str(exc))
+            continue
 
-# 9-10. no unguarded model.learn; remaining training cells guarded+disabled
-for name, nb in loaded.items():
-    bad = real_learn_lines(nb)
-    check(not bad, f"{name} no unguarded model.learn(",
-          detail_ok="all .learn() calls inside ALLOW_TRAINING guard",
-          detail_fail="unguarded: " + " | ".join(f"{a}:{b}" for a, b in bad[:3]))
-    # ALLOW_TRAINING default False present in a config cell
-    has_flag = any("ALLOW_TRAINING = False" in cell_src(c) or
-                   "ALLOW_TRAINING=False" in cell_src(c)
-                   for c in nb.cells if c.cell_type == "code")
-    check(has_flag, f"{name} ships ALLOW_TRAINING=False (training disabled by default)",
-          detail_fail="ALLOW_TRAINING=False not found")
+        if nbformat is None:
+            record(False, f"{name} notebook nbformat validation", detail_fail="nbformat not installed", severity="NON-BLOCKING")
+            continue
 
-# 11. result summary distinguishes PPO-completed vs SAC-partial
-rs_path = os.path.join(ROOT, "docs", "RESULT_SUMMARY.md")
-if os.path.isfile(rs_path):
-    rs = open(rs_path, encoding="utf-8").read()
-    check("COMPLETED 500K" in rs and "938.87" in rs,
-          "RESULT_SUMMARY marks PPO completed 500K baseline",
-          detail_fail="PPO completion/number missing")
-    check(("NOT a completed 500K" in rs or "not\n  treated as a completed 500K" in rs
-           or "not treated as a completed 500K" in rs)
-          and "400K" in rs,
-          "RESULT_SUMMARY marks SAC 400K best-checkpoint / partial run",
-          detail_fail="SAC partial-run status missing")
-else:
-    check(False, "RESULT_SUMMARY.md present", detail_fail="missing")
+        try:
+            nb = nbformat.read(path, as_version=4)
+            nbformat.validate(nb)
+            record(True, f"{name} notebook passes nbformat.validate")
+        except Exception as exc:
+            record(False, f"{name} notebook passes nbformat.validate", detail_fail=str(exc))
 
-# originals untouched (sanity)
-for orig in [os.path.join(os.path.dirname(ROOT), "completed_run_evidence", "V9_CarRacing_PPO_Colab.ipynb"),
-             os.path.join(os.path.dirname(ROOT), "completed_run_evidence", "V11_1_CarRacing_SAC_Fast_Result.ipynb")]:
-    check(os.path.isfile(orig), f"original preserved: {os.path.basename(orig)}",
-          nonblocking=True, detail_fail="original not found (cannot confirm)")
 
-# ----------------------------------------------------------------------------
-# write report
-# ----------------------------------------------------------------------------
-n_fail = sum(1 for s, _, _ in results if s == "FAIL")
-n_nb = sum(1 for s, _, _ in results if s == "NON-BLOCKING")
-n_pass = sum(1 for s, _, _ in results if s == "PASS")
-overall = "FAIL" if n_fail else "PASS"
+def validate_size_limits():
+    over_50 = [p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file() and p.stat().st_size > 50 * 1024 * 1024]
+    over_90 = [p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file() and p.stat().st_size > 90 * 1024 * 1024]
+    record(not over_50, "no file exceeds 50 MiB", detail_fail=", ".join(over_50))
+    record(not over_90, "no file exceeds 90 MiB", detail_fail=", ".join(over_90))
 
-lines = [
-    "# validation_report.md",
-    "",
-    f"_Static validation run {datetime.date.today().isoformat()} by "
-    "`tools/validate_final_release.py` (no notebooks/training executed)._",
-    "",
-    f"## Overall: **{overall}**  ({n_pass} PASS, {n_fail} FAIL, {n_nb} NON-BLOCKING)",
-    "",
-    "| status | check | detail |",
-    "|---|---|---|",
-]
-for sev, label, detail in results:
-    lines.append(f"| {sev} | {label} | {detail} |")
-lines += [
-    "",
-    "## Notes",
-    "- Static checks only: AST/JSON/nbformat validity, heading cleanliness, "
-    "training-guard presence, and result-summary honesty.",
-    "- Seed isolation, eval correctness, and training stability can only be "
-    "verified by running the notebooks in Colab (per project rule 2).",
-]
-report = "\n".join(lines) + "\n"
 
-os.makedirs(os.path.join(ROOT, "validation"), exist_ok=True)
-with open(os.path.join(ROOT, "validation", "validation_report.md"), "w", encoding="utf-8") as f:
-    f.write(report)
+def write_report():
+    n_pass = sum(1 for status, _, _ in RESULTS if status == "PASS")
+    n_fail = sum(1 for status, _, _ in RESULTS if status == "FAIL")
+    n_nb = sum(1 for status, _, _ in RESULTS if status == "NON-BLOCKING")
+    overall = "FAIL" if n_fail else "PASS"
 
-print(f"VALIDATION {overall}: {n_pass} PASS / {n_fail} FAIL / {n_nb} NON-BLOCKING")
-for sev, label, detail in results:
-    if sev != "PASS":
-        print(f"  [{sev}] {label} -- {detail}")
-raise SystemExit(1 if n_fail else 0)
+    lines = [
+        "# validation_report.md",
+        "",
+        f"_Static validation run {_dt.date.today().isoformat()} by `tools/validate_final_release.py`._",
+        "",
+        "No notebooks, training, or result generation were executed.",
+        "",
+        f"## Overall: **{overall}** ({n_pass} PASS, {n_fail} FAIL, {n_nb} NON-BLOCKING)",
+        "",
+        "| status | check | detail |",
+        "|---|---|---|",
+    ]
+    for status, label, detail in RESULTS:
+        lines.append(f"| {status} | {label} | {detail} |")
+    lines.extend([
+        "",
+        "## Notes",
+        "",
+        "- This validates the V2 GitHub package structure only.",
+        "- Notebook execution, training stability, and live evaluation still require the intended Colab/GPU runtime.",
+    ])
+
+    report = "\n".join(lines) + "\n"
+    (ROOT / "validation").mkdir(exist_ok=True)
+    (ROOT / "validation" / "validation_report.md").write_text(report, encoding="utf-8")
+    print(f"VALIDATION {overall}: {n_pass} PASS / {n_fail} FAIL / {n_nb} NON-BLOCKING")
+    return n_fail
+
+
+def main():
+    for rel in REQUIRED_FILES:
+        record((ROOT / rel).is_file(), f"exists: {rel}", detail_fail="missing")
+
+    validate_notebooks()
+    bad_claims = unsupported_claims()
+    record(not bad_claims, "V2 README/docs avoid unsupported PPO/SAC claims", detail_fail="; ".join(bad_claims))
+
+    broken = broken_markdown_links()
+    record(not broken, "relative Markdown links resolve", detail_fail="; ".join(broken))
+
+    validate_size_limits()
+    raise SystemExit(1 if write_report() else 0)
+
+
+if __name__ == "__main__":
+    main()

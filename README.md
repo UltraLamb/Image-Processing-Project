@@ -8,6 +8,8 @@
   adds the later PPO V9 completed 500K baseline and SAC V11.1 validated 400K
   fast-result branch without replacing the original submission.
 
+The sections below describe the original V1 root package; see the V2 folder for the later PPO/SAC update.
+
 ## Overview
 
 This repository contains a reproducible CarRacing-v3 PPO project built around deterministic road-mask ray features. Instead of training PPO directly on 96x96 RGB pixels, the environment wrapper converts each frame into a compact road-geometry vector, allowing Stable-Baselines3 PPO with `MlpPolicy` to train on a 56D stacked observation.

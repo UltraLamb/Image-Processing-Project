@@ -1,4 +1,6 @@
-# RUN_INSTRUCTIONS.md  (safe report / eval-only use)
+# RUN_INSTRUCTIONS.md
+
+Safe report / eval-only use.
 
 These notebooks are cleaned for the report. **They do not train by default.**
 

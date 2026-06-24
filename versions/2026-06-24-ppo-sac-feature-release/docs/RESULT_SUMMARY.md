@@ -18,6 +18,7 @@ Perception: **mask / ray / radar visual features** (not raw-pixel CNN).
 - Throughput: ~40 fps, elapsed 12417s (~3h26m)
 
 ### PPO eval checkpoints
+
 | step | mean reward | +/- std |
 |---:|---:|---:|
 | 20,000 | 293.54 | 146.56 |
@@ -62,6 +63,7 @@ Perception: **mask / ray / radar visual features** (not raw-pixel CNN).
 - Early stopping reflects Colab runtime limits / fast-result intent.
 
 ### SAC eval checkpoints
+
 | step | mean reward | +/- std |
 |---:|---:|---:|
 | 50,000 | 9.67 | 8.98 |

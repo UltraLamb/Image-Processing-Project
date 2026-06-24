@@ -1,28 +1,44 @@
-# CarRacing Final Clean Release
+# V2 PPO/SAC Feature Release
 
-Presentation-ready final release for the project
-**"Visual Reinforcement Learning for Randomized CarRacing-v3: PPO Baseline,
-Generalization, and Speed."**
+GitHub-ready V2 release for the project **"Visual Reinforcement Learning for
+Randomized CarRacing-v3: PPO Baseline, Generalization, and Speed."**
 
-Two cleaned notebooks (PPO baseline + SAC fast result), the supporting training
-logs, an evidence-based result summary, and starter notes for the written report
-and slides.
+This folder contains two cleaned notebooks (PPO baseline + SAC fast result), the
+supporting training logs, an evidence-based result summary, final report assets,
+and validation notes.
 
 ## Layout
 
 ```
-CarRacing_Final_Clean_Release/
+versions/2026-06-24-ppo-sac-feature-release/
+  README.md
+  report/
+    CarRacing_v3_RL_Report_1103820_REVISED.docx
   notebooks/
     Final_PPO_Baseline_CarRacing_v3.ipynb   # PPO baseline, completed 500K
-    Final_SAC_Fast_Result_CarRacing_v3.ipynb# SAC fast result, 400K best (partial)
+    Final_SAC_Fast_Result_CarRacing_v3.ipynb # SAC fast result, 400K best (partial)
   logs/
-    V9_training_500k_log.txt                 # PPO training log (unmodified copy)
-    V11_1_training_log.txt                   # SAC training log (unmodified copy)
+    V9_training_500k_log.txt
+    V11_1_training_log.txt
+  figures/
+    checkpoint_comparison.png
+    feature_pipeline_schematic.png
+    generalization_summary.png
+    training_curve_ppo_sac.png
+  tables/
+    compute_budget.csv
+    headline_comparison.csv
+    notebook_output_generalization_summary.csv
+    ppo_eval_checkpoints.csv
+    sac_eval_checkpoints.csv
   docs/
-    README.md  RESULT_SUMMARY.md  RUN_INSTRUCTIONS.md
-    NOTEBOOK_CLEANUP_CHANGELOG.md  REPORT_AND_PPT_STARTER_NOTES.md
+    README.md
+    RESULT_SUMMARY.md
+    RUN_INSTRUCTIONS.md
+    ASSET_EXPORT_MANIFEST.md
   tools/
-    build_final_clean_release.py  validate_final_release.py
+    build_final_clean_release.py
+    validate_final_release.py
   validation/
     validation_report.md
 ```
@@ -36,7 +52,10 @@ CarRacing_Final_Clean_Release/
 
 Both notebooks ship in **REPORT_ONLY / EVAL_ONLY** mode. Training cells are
 disabled by default (`ALLOW_TRAINING=False`). Nothing here trains automatically.
-See `docs/RUN_INSTRUCTIONS.md`.
+See [`RUN_INSTRUCTIONS.md`](RUN_INSTRUCTIONS.md).
 
-Regenerate with `python tools/build_final_clean_release.py` then
-`python tools/validate_final_release.py`.
+Validate this V2 folder from the version root with:
+
+```bash
+python tools/validate_final_release.py
+```
