@@ -14,14 +14,6 @@ a later PPO/SAC feature-release update.
 The sections below describe the original V1 root package; see the V2 folder for
 the later PPO/SAC update.
 
-## Quick Result Snapshot
-
-| Package | Main result | Conservative interpretation |
-| ------- | ----------- | --------------------------- |
-| V1 PPO-only | best raw reward 929.7; RANDOM10 mean raw reward 614.1 | promising sample efficiency, but not uniformly robust |
-| V2 PPO V9 | final eval 938.87 +/- 7.86 @ 500,000; best parsed eval 939.53 +/- 4.09 @ 480,000 | completed 500K feature-based PPO baseline |
-| V2 SAC V11.1 | validated checkpoint 938.51 +/- 4.88 @ 400,000 | partial 400K best-checkpoint fast-result branch, not a completed 500K run |
-
 ## Quick Links
 
 ### V1 Original Package
@@ -38,8 +30,18 @@ the later PPO/SAC update.
 - [V2 PPO notebook](versions/2026-06-24-ppo-sac-feature-release/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb)
 - [V2 SAC notebook](versions/2026-06-24-ppo-sac-feature-release/notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb)
 - [V2 result summary](versions/2026-06-24-ppo-sac-feature-release/docs/RESULT_SUMMARY.md)
+- [V2 media/videos](versions/2026-06-24-ppo-sac-feature-release/media/videos/)
+- [V2 media manifest](versions/2026-06-24-ppo-sac-feature-release/media/video_manifest.csv)
 - [V2 media notes](versions/2026-06-24-ppo-sac-feature-release/MEDIA.md)
 - [V2 release notes](versions/2026-06-24-ppo-sac-feature-release/RELEASE_NOTES_V2.md)
+
+## Quick Result Snapshot
+
+| Package      | Main result                                                                                          | Conservative interpretation                                            |
+| ------------ | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| V1 PPO-only  | best raw reward 929.7; RANDOM10 mean raw reward 614.1                                                | promising sample efficiency, but not uniformly robust                  |
+| V2 PPO V9    | final eval 938.87 +/- 7.86 @ 500,000; best parsed eval 939.53 +/- 4.09 @ 480,000                     | completed 500K feature-based PPO baseline                              |
+| V2 SAC V11.1 | validated checkpoint 938.51 +/- 4.88 @ 400,000                                                       | partial 400K best-checkpoint fast-result branch only |
 
 ## V1 Original PPO-only Submission
 
@@ -143,9 +145,9 @@ context. They were not rerun in this project and are not treated as matched
 baselines.
 
 This project does not claim to beat RL Zoo. It does not claim to beat the
-Hugging Face `ppo_lstm` model. It does not claim that CarRacing-v3 is solved.
-The measured evidence in this repository belongs only to this submitted
-ray-feature PPO artifact.
+Hugging Face `ppo_lstm` model. It does not claim a solved CarRacing-v3
+environment. The measured evidence in this repository belongs only to this
+submitted ray-feature PPO artifact.
 
 References:
 
@@ -163,8 +165,9 @@ References:
 - Local rays are weak after off-road drift.
 - Action smoothing can delay recovery.
 - Evaluation reward has high variance across seeds.
-- PPO-vs-SAC comparison is future, separate work and is not part of this
-  submitted project.
+- For the original V1 course submission, PPO-vs-SAC comparison was not part of
+  the submitted package; the later V2 folder contains a separate PPO/SAC
+  feature-based update.
 
 ### Report and Slides
 

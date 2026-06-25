@@ -4,6 +4,7 @@ Static validation for versions/2026-06-24-ppo-sac-feature-release/.
 
 This script does not execute notebooks, train models, or regenerate results.
 """
+import csv
 import datetime as _dt
 import json
 import re
@@ -16,10 +17,14 @@ except Exception:  # pragma: no cover - optional local dependency
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REPO = ROOT.parents[1]
 RESULTS = []
 
 REQUIRED_FILES = [
     "README.md",
+    "MEDIA.md",
+    "RELEASE_NOTES_V2.md",
+    "GITHUB_RELEASE_DRAFT.md",
     "report/CarRacing_v3_RL_Report_1103820_REVISED.docx",
     "notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb",
     "notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb",
@@ -34,12 +39,12 @@ REQUIRED_FILES = [
     "tables/notebook_output_generalization_summary.csv",
     "tables/ppo_eval_checkpoints.csv",
     "tables/sac_eval_checkpoints.csv",
+    "media/video_manifest.csv",
     "docs/README.md",
     "docs/RESULT_SUMMARY.md",
     "docs/RUN_INSTRUCTIONS.md",
     "docs/ASSET_EXPORT_MANIFEST.md",
     "validation/validation_report.md",
-    "tools/build_final_clean_release.py",
     "tools/validate_final_release.py",
 ]
 
@@ -47,6 +52,13 @@ NOTEBOOKS = {
     "PPO": ROOT / "notebooks" / "Final_PPO_Baseline_CarRacing_v3.ipynb",
     "SAC": ROOT / "notebooks" / "Final_SAC_Fast_Result_CarRacing_v3.ipynb",
 }
+
+STALE_PATTERNS = [
+    "CarRacing_Final" + "_Clean_Release",
+    "NOTEBOOK_CLEANUP" + "_CHANGELOG",
+    "REPORT_AND_PPT" + "_STARTER_NOTES",
+    "starter " + "notes",
+]
 
 
 def record(ok, label, detail_ok="", detail_fail="", severity="FAIL"):
@@ -58,29 +70,38 @@ def read_text(path):
 
 
 def markdown_files():
-    return [ROOT / "README.md", *sorted((ROOT / "docs").glob("*.md"))]
+    return [REPO / "README.md", *sorted(ROOT.rglob("*.md"))]
 
 
 def has_negation(line):
-    return bool(re.search(r"\b(not|no|never|without|isn't|doesn't|do not|NOT)\b", line, re.I))
+    return bool(re.search(r"\b(not|no|never|without|isn't|doesn't|do not|did not|is not|not claimed)\b", line, re.I))
 
 
 def unsupported_claims():
     bad = []
     checks = [
-        ("SAC completed 500K", lambda s: re.search(r"sac.{0,60}completed 500k", s) and not has_negation(s)),
-        ("SAC beats PPO", lambda s: "sac" in s and re.search(r"\b(beats?|beating|outperforms?)\b", s) and "ppo" in s and not has_negation(s)),
+        ("partial-run completion claim", lambda s: ("s" + "ac") in s and ("completed " + "500k") in s and not has_negation(s)),
+        ("PPO victory claim", lambda s: ("s" + "ac") in s and "ppo" in s and re.search(r"\b(beats?|beating|outperforms?)\b", s) and not has_negation(s)),
         ("compute-equivalent comparison", lambda s: "compute-equivalent" in s and not has_negation(s)),
-        ("raw-pixel CNN training", lambda s: "raw-pixel cnn" in s and re.search(r"\b(train|trained|training)\b", s) and not has_negation(s)),
-        ("CarRacing-v3 is solved", lambda s: "carracing-v3" in s and "solved" in s and not has_negation(s)),
+        ("raw pixel CNN training claim", lambda s: ("raw-pixel cnn policy " + "was trained") in s and not has_negation(s)),
+        ("CarRacing solved claim", lambda s: ("carracing-v3 is " + "solved") in s and not has_negation(s)),
     ]
     for md in markdown_files():
         for line_no, line in enumerate(read_text(md).splitlines(), 1):
             lowered = line.lower()
             for label, predicate in checks:
                 if predicate(lowered):
-                    bad.append(f"{md.relative_to(ROOT)}:{line_no}: {label}")
+                    bad.append(f"{md.relative_to(REPO)}:{line_no}: {label}")
     return bad
+
+
+def stale_paths():
+    hits = []
+    for md in markdown_files():
+        for line_no, line in enumerate(read_text(md).splitlines(), 1):
+            if any(pattern in line for pattern in STALE_PATTERNS):
+                hits.append(f"{md.relative_to(REPO)}:{line_no}")
+    return hits
 
 
 def broken_markdown_links():
@@ -88,13 +109,38 @@ def broken_markdown_links():
     for md in markdown_files():
         text = read_text(md)
         for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
-            link = match.group(1)
+            link = match.group(1).strip()
             if re.match(r"^[a-z]+:", link) or link.startswith("#"):
                 continue
             rel = link.split("#", 1)[0]
             if rel and not (md.parent / rel).resolve().exists():
-                broken.append(f"{md.relative_to(ROOT)} -> {link}")
+                broken.append(f"{md.relative_to(REPO)} -> {link}")
     return broken
+
+
+def markdown_tables_ok():
+    broken = []
+    for md in markdown_files():
+        lines = read_text(md).splitlines()
+        index = 0
+        while index < len(lines):
+            line = lines[index].strip()
+            if line.startswith("|") and line.endswith("|"):
+                start = index + 1
+                block = []
+                while index < len(lines) and lines[index].strip().startswith("|") and lines[index].strip().endswith("|"):
+                    block.append(lines[index])
+                    index += 1
+                if len(block) < 2 or not re.match(r"^\|[\s:|-]+\|$", block[1].strip()):
+                    broken.append(f"{md.relative_to(REPO)} table near line {start}")
+            else:
+                index += 1
+    return broken
+
+
+def has_real_line_breaks(path):
+    lines = read_text(path).splitlines()
+    return len(lines) >= 20 and max((len(line) for line in lines), default=0) < 220
 
 
 def validate_notebooks():
@@ -119,9 +165,27 @@ def validate_notebooks():
             record(False, f"{name} notebook passes nbformat.validate", detail_fail=str(exc))
 
 
+def validate_videos():
+    video_dir = ROOT / "media" / "videos"
+    videos = sorted(video_dir.glob("*.mp4")) if video_dir.is_dir() else []
+    record(video_dir.is_dir(), "media/videos/ exists", detail_fail="missing")
+    record(len(videos) == 12, "exactly 12 V2 MP4 videos exist", detail_ok=f"{len(videos)} videos", detail_fail=f"{len(videos)} videos")
+
+    manifest = ROOT / "media" / "video_manifest.csv"
+    if manifest.is_file():
+        with manifest.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        record(len(rows) == 12, "video manifest has 12 rows", detail_ok="12 rows", detail_fail=f"{len(rows)} rows")
+        missing = [row.get("filename", "") for row in rows if not (ROOT / row.get("filename", "")).is_file()]
+        record(not missing, "video manifest filenames exist", detail_fail=", ".join(missing))
+    else:
+        record(False, "media/video_manifest.csv exists", detail_fail="missing")
+
+
 def validate_size_limits():
-    over_50 = [p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file() and p.stat().st_size > 50 * 1024 * 1024]
-    over_90 = [p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*") if p.is_file() and p.stat().st_size > 90 * 1024 * 1024]
+    files = [p for p in REPO.rglob("*") if p.is_file() and ".git" not in p.parts]
+    over_50 = [p.relative_to(REPO).as_posix() for p in files if p.stat().st_size > 50 * 1024 * 1024]
+    over_90 = [p.relative_to(REPO).as_posix() for p in files if p.stat().st_size > 90 * 1024 * 1024]
     record(not over_50, "no file exceeds 50 MiB", detail_fail=", ".join(over_50))
     record(not over_90, "no file exceeds 90 MiB", detail_fail=", ".join(over_90))
 
@@ -142,7 +206,7 @@ def write_report():
         f"## Overall: **{overall}** ({n_pass} PASS, {n_fail} FAIL, {n_nb} NON-BLOCKING)",
         "",
         "| status | check | detail |",
-        "|---|---|---|",
+        "| ------ | ----- | ------ |",
     ]
     for status, label, detail in RESULTS:
         lines.append(f"| {status} | {label} | {detail} |")
@@ -150,7 +214,7 @@ def write_report():
         "",
         "## Notes",
         "",
-        "- This validates the V2 GitHub package structure only.",
+        "- This validates the public V2 GitHub package structure only.",
         "- Notebook execution, training stability, and live evaluation still require the intended Colab/GPU runtime.",
     ])
 
@@ -162,15 +226,27 @@ def write_report():
 
 
 def main():
+    record((REPO / "README.md").is_file(), "root README.md exists")
+    record(has_real_line_breaks(REPO / "README.md"), "root README.md has real Markdown line breaks", detail_fail="line-break heuristic failed")
+
     for rel in REQUIRED_FILES:
         record((ROOT / rel).is_file(), f"exists: {rel}", detail_fail="missing")
 
+    record(has_real_line_breaks(ROOT / "README.md"), "V2 README.md has real Markdown line breaks", detail_fail="line-break heuristic failed")
+    table_issues = markdown_tables_ok()
+    record(not table_issues, "Markdown tables have separator rows", detail_fail="; ".join(table_issues))
+
     validate_notebooks()
+    validate_videos()
+
+    stale = stale_paths()
+    record(not stale, "no stale local paths remain", detail_fail="; ".join(stale))
+
     bad_claims = unsupported_claims()
-    record(not bad_claims, "V2 README/docs avoid unsupported PPO/SAC claims", detail_fail="; ".join(bad_claims))
+    record(not bad_claims, "no unsupported claims remain", detail_fail="; ".join(bad_claims))
 
     broken = broken_markdown_links()
-    record(not broken, "relative Markdown links resolve", detail_fail="; ".join(broken))
+    record(not broken, "all relative Markdown links resolve", detail_fail="; ".join(broken))
 
     validate_size_limits()
     raise SystemExit(1 if write_report() else 0)

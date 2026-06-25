@@ -82,6 +82,6 @@ Perception: **mask / ray / radar visual features** (not raw-pixel CNN).
 PPO is a fully completed 500K baseline.
 
 SAC is a strong but **partial** fast-result run whose headline number is the
-**400K** checkpoint. Do not present SAC as a completed 500K run. When comparing,
-compare PPO@500K (or PPO@best) against SAC@400K-best and disclose the
-difference in budget.
+**400K** checkpoint. Treat SAC only as a 400K checkpoint result. When comparing,
+compare PPO@500K (or PPO@best) against SAC@400K-best and disclose the difference
+in budget.

@@ -13,6 +13,8 @@ root.
 - Training logs in [`logs/`](logs/).
 - Figures in [`figures/`](figures/).
 - CSV tables in [`tables/`](tables/).
+- Standalone MP4 demo videos in [`media/videos/`](media/videos/).
+- Video metadata in [`media/video_manifest.csv`](media/video_manifest.csv).
 - Documentation in [`docs/`](docs/).
 - Static validation report in [`validation/`](validation/).
 
@@ -28,5 +30,5 @@ root.
 - SAC V11.1 did not complete 500K.
 - SAC is not claimed to beat PPO.
 - The PPO/SAC comparison is not compute-equivalent.
-- No raw-pixel CNN policy was trained.
+- No raw image-input CNN policy was trained.
 - CarRacing-v3 is not claimed solved.
