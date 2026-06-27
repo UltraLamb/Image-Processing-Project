@@ -6,6 +6,8 @@ _Joe / Student ID 1103820_
 
 An inspectable image-processing pipeline converts CarRacing-v3 RGB frames into
 compact road-geometry features for PPO/SAC control evaluation.
+Instead of training a raw-pixel CNN policy, the package emphasizes an explicit,
+inspectable, and lightweight visual state representation.
 
 ## Demo
 
@@ -36,6 +38,11 @@ compact road-geometry features for PPO/SAC control evaluation.
 a strong but partial fast-result branch whose validated number is the 400K
 checkpoint. The PPO/SAC comparison is not compute-equivalent, and SAC is not
 presented as outperforming PPO. The project makes no environment-completion claim.
+
+**Metric context.** In CarRacing-v3, reward is tied to track-tile coverage with
+a per-frame time penalty, so scores in the 930s should be read as high-return
+evaluation episodes under the saved protocol. This package still does not make
+a general environment-completion or compute-equivalent PPO/SAC claim.
 
 ## Method at a glance
 
@@ -91,6 +98,8 @@ Start with [`final/README.md`](final/README.md), the
 notebooks are kept in safe report/evaluation mode and include saved output
 evidence; they do not require retraining to inspect. Do not rerun training
 unless you intentionally change the project scope.
+For local/static inspection guidance and Colab-safe report/evaluation mode,
+see [`final/docs/RUN_INSTRUCTIONS.md`](final/docs/RUN_INSTRUCTIONS.md).
 
 Key evidence paths:
 
@@ -101,7 +110,7 @@ Key evidence paths:
 
 ## Limitations
 
-- The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
+- The SAC fast-result branch is a partial 400K checkpoint, not a full-length 500K run.
 - SAC is not presented as outperforming PPO.
 - PPO and SAC are not a compute-equivalent comparison.
 - This project package does not include raw-pixel CNN policy training.
