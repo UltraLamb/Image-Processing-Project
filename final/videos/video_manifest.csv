@@ -1,0 +1,13 @@
+algorithm,label,seed,reward,fps,frames,duration_s,filename,source_notebook,notes
+PPO completed baseline,worst,599310825,911.2,15,222,14.8,ppo_demo_limitation_3.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+PPO completed baseline,worst,123,913.4,15,217,14.5,ppo_demo_limitation_2.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+PPO completed baseline,worst,1051802512,918.4,15,204,13.6,ppo_demo_limitation_1.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+PPO completed baseline,best,107420369,932.9,15,168,11.2,ppo_demo_best_2.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+PPO completed baseline,best,1181241943,933.0,15,168,11.2,ppo_demo_best_3.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+PPO completed baseline,best,136505587,936.0,15,160,10.7,best_ppo_demo.mp4,notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,worst,599310825,908.7,30,229,7.6,sac_demo_limitation_3.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,worst,123,911.0,30,223,7.4,sac_demo_limitation_2.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,worst,1051802512,914.4,30,214,7.1,sac_demo_limitation_1.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,best,1181241943,931.1,30,173,5.8,sac_demo_best_3.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,best,107420369,933.3,30,167,5.6,sac_demo_best_2.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model
+SAC fast-result branch,best,136505587,933.7,30,166,5.5,sac_demo_best.mp4,notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb,extracted from embedded notebook output; model=best_model

@@ -1,3 +1,0 @@
-branch,planned_budget,validated_eval_budget,last_observed_step,completion_status,throughput_fps,elapsed_seconds,elapsed_hms,source_evidence
-PPO V9,500000,500000,501760,completed 500K baseline,about 40,12417,3h26m,docs/RESULT_SUMMARY.md; logs/V9_training_500k_log.txt
-SAC V11.1,500000,400000,418697,partial run; 400K best-checkpoint result,about 36,11400,3h10m,docs/RESULT_SUMMARY.md; logs/V11_1_training_log.txt

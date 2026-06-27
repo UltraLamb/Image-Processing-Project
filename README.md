@@ -1,175 +1,131 @@
-# CarRacing-v3 Feature-Based Reinforcement Learning
+# Image Processing Project
 
-This repository contains feature-based reinforcement learning experiments for
-Gymnasium `CarRacing-v3`, including the original PPO-only course submission and
-a later PPO/SAC feature-release update.
+**Feature-Based Image Processing and Reinforcement Learning for CarRacing-v3**
 
-## Versions
+_Joe · Student ID 1103820_
 
-| Version | Location | Summary |
-| ------- | -------- | ------- |
-| V1 original course submission | repository root | PPO-only ray-feature project with 14D observations stacked to 56D |
-| V2 PPO/SAC feature release | [`versions/2026-06-24-ppo-sac-feature-release/`](versions/2026-06-24-ppo-sac-feature-release/) | Later feature-based PPO/SAC update |
+This project turns rendered RGB driving frames into a compact, inspectable
+visual feature representation, then uses off-the-shelf PPO and SAC policies as
+downstream evaluators on Gymnasium `CarRacing-v3`. The contribution is the
+image-processing pipeline; the reinforcement-learning algorithms are evaluation
+tools, not the novelty.
 
-The sections below describe the original V1 root package; see the V2 folder for
-the later PPO/SAC update.
+<p align="center">
+  <img src="final/figures/feature_pipeline_schematic.png" alt="Image processing pipeline: RGB frame -> HSV road mask -> ray/radar features -> compact observation -> PPO/SAC policy" width="720">
+</p>
 
-## Quick Links
+## Demo preview
 
-### V1 Original Package
+<p align="center">
+  <a href="final/videos/best_ppo_demo.mp4">
+    <img src="final/figures/best_ppo_demo_poster.png" alt="Best PPO baseline demo (raw reward 936)" width="480">
+  </a>
+  <br>
+  <em>Best PPO baseline clip (raw reward 936). The full 12-clip gallery is in
+  <a href="final/videos/README.md">final/videos/README.md</a>.</em>
+</p>
 
-- [V1 notebook](notebooks/CarRacingV3_PPO_Final_Submission.ipynb)
-- [V1 report PDF](report/CarRacingV3_PPO_Final_Report.pdf)
-- [V1 artifact zip](artifacts/CarRacingV3_PPO_Final_Submission.zip)
-- [V1 presentation](slides/CarRacingV3_PPO_Final_Presentation_REBUILT.pptx)
+---
 
-### V2 PPO/SAC Update
+## Final submission materials
 
-- [V2 folder](versions/2026-06-24-ppo-sac-feature-release/)
-- [V2 report DOCX](versions/2026-06-24-ppo-sac-feature-release/report/CarRacing_v3_RL_Report_1103820_REVISED.docx)
-- [V2 PPO notebook](versions/2026-06-24-ppo-sac-feature-release/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb)
-- [V2 SAC notebook](versions/2026-06-24-ppo-sac-feature-release/notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb)
-- [V2 result summary](versions/2026-06-24-ppo-sac-feature-release/docs/RESULT_SUMMARY.md)
-- [V2 media/videos](versions/2026-06-24-ppo-sac-feature-release/media/videos/)
-- [V2 media manifest](versions/2026-06-24-ppo-sac-feature-release/media/video_manifest.csv)
-- [V2 media notes](versions/2026-06-24-ppo-sac-feature-release/MEDIA.md)
-- [V2 release notes](versions/2026-06-24-ppo-sac-feature-release/RELEASE_NOTES_V2.md)
+| Material | Link |
+| -------- | ---- |
+| Final IEEE-style report (PDF) | [`Image_Processing_Project_V2_IEEE_Report.pdf`](final/report/Image_Processing_Project_V2_IEEE_Report.pdf) |
+| Overleaf / LaTeX package | [`final/overleaf/Image_Processing_Project_Overleaf_Package.zip`](final/overleaf/Image_Processing_Project_Overleaf_Package.zip) |
+| Final presentation (PDF) | [`final/slides/Image_Processing_Project_Final_Presentation.pdf`](final/slides/Image_Processing_Project_Final_Presentation.pdf) |
+| Final presentation (PPTX) | [`final/slides/Image_Processing_Project_Final_Presentation.pptx`](final/slides/Image_Processing_Project_Final_Presentation.pptx) |
+| PPO notebook | [`final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb`](final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb) |
+| SAC notebook | [`final/notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb`](final/notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb) |
+| Result summary | [`final/docs/RESULT_SUMMARY.md`](final/docs/RESULT_SUMMARY.md) |
+| Figures | [`final/figures/`](final/figures/) |
+| Video gallery | [`final/videos/README.md`](final/videos/README.md) |
 
-## Quick Result Snapshot
+## Key results
 
-| Package      | Main result                                                                                          | Conservative interpretation                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| V1 PPO-only  | best raw reward 929.7; RANDOM10 mean raw reward 614.1                                                | promising sample efficiency, but not uniformly robust                  |
-| V2 PPO V9    | final eval 938.87 +/- 7.86 @ 500,000; best parsed eval 939.53 +/- 4.09 @ 480,000                     | completed 500K feature-based PPO baseline                              |
-| V2 SAC V11.1 | validated checkpoint 938.51 +/- 4.88 @ 400,000                                                       | partial 400K best-checkpoint fast-result branch only |
+| Branch | Status | Validated eval | Best parsed eval |
+| ------ | ------ | -------------- | ---------------- |
+| PPO completed baseline | Completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | 939.53 +/- 4.09 @ 480,000 |
+| SAC fast-result branch | Partial 400K best-checkpoint / fast-result branch | 938.51 +/- 4.88 @ 400,000 | 938.51 +/- 4.88 @ 400,000 |
 
-## V1 Original PPO-only Submission
+**Conservative interpretation.** PPO is a fully completed 500K baseline. SAC is
+a strong but **partial** fast-result branch whose validated number is the 400K
+checkpoint. The PPO/SAC comparison is **not** compute-equivalent, and SAC is not
+claimed to beat PPO. CarRacing-v3 is not claimed to be solved.
 
-### Overview
+A key design point: PPO and SAC share the **same 16-dimensional base / 64-dimensional
+temporally stacked visual feature pipeline**. The perception layer is held
+constant; only the downstream policy optimization method changes.
 
-This repository contains a reproducible CarRacing-v3 PPO project built around
-deterministic road-mask ray features. Instead of training PPO directly on 96x96
-RGB pixels, the environment wrapper converts each frame into a compact
-road-geometry vector, allowing Stable-Baselines3 PPO with `MlpPolicy` to train
-on a 56D stacked observation.
-
-The final artifact demonstrates promising sample efficiency under a
-500,000-timestep budget, reaching a best raw reward of 929.7. However, the
-RANDOM10 mean raw reward is 614.1 with high variance, and low-reward failure
-seeds remain. The project should therefore be interpreted as a compact
-representation study, not as a fully robust CarRacing solution.
-
-### Method Summary
-
-The PPO algorithm is unchanged. The main contribution is the deterministic
-observation wrapper and the reproducible evaluation package around it.
+## Image processing pipeline
 
 ```text
-RGB frame -> crop -> HSV grass mask -> inverted road mask -> 9 rays -> 14D vector -> 4-frame stack -> 56D PPO input
+RGB frame -> crop/preprocess -> HSV road mask -> ray/radar features -> stacked observation -> PPO/SAC policy
 ```
 
-The base observation contains 9 road-distance rays, previous
-steering/gas/brake actions, speed, and a curvature proxy. Four consecutive 14D
-observations are stacked into the 56D vector used by PPO. The final policy uses
-Stable-Baselines3 PPO with `MlpPolicy`, plus smoothed steering/gas/brake actions
-during environment interaction.
+Each 96x96 RGB frame is cropped, converted to HSV, thresholded into a road mask
+(grass removed by HSV range), cleaned with morphological opening, and summarized
+by nine distance rays cast across a calibrated angular fan. The compact
+observation vector is temporally stacked and passed to a standard
+Stable-Baselines3 MLP policy. No raw image-input CNN policy was trained.
 
-### Ray Feature Visualization
+## Repository structure
 
-![Ray feature design](figures/ray_feature_design.png)
+```text
+final/                 public-facing final package
+  report/              final IEEE-style report (PDF / DOCX)
+  overleaf/            LaTeX source package for the report
+  slides/              final presentation (PPTX / PDF)
+  notebooks/           PPO and SAC notebooks with saved outputs
+  figures/             report and slide figures + demo poster
+  tables/              CSV result evidence
+  videos/              12 demo MP4s + video_manifest.csv + gallery README
+  logs/                training and evaluation logs
+  docs/                result summary, run instructions, dataset notes
+  validation/          static validation report
+archive/               preserved history (not the final submission)
+  v1_original_submission/   original V1 PPO-only submission
+  legacy_versions/          dated V2 build snapshot (promoted to final/)
+  internal_traceability/    internal->neutral filename/label map
+```
 
-The figure shows a representative local CarRacing frame from this repository,
-the HSV road-mask interpretation, 9 ray distances from origin `(48, 70)`, and
-the 14D-to-56D observation design.
+## How to review / reproduce
 
-### Repository Contents
+Start with [`final/README.md`](final/README.md), the
+[result summary](final/docs/RESULT_SUMMARY.md), and the final report. The
+notebooks are kept in safe report/evaluation mode and include saved output
+evidence — they do not require retraining to inspect. Do not rerun training
+unless you intentionally change the project scope.
 
-- [`report/`](report/) - IEEE-style report PDF and LaTeX source.
-- [`slides/`](slides/) - rebuilt final presentation.
-- [`notebooks/`](notebooks/) - clean final notebook.
-- [`figures/`](figures/) - method and result figures.
-- [`tables/`](tables/) - CSV result tables.
-- [`artifacts/`](artifacts/) - saved model, evaluation data, and video artifact
-  package.
-- [`DATASET.md`](DATASET.md) - dataset and environment explanation.
-- [`requirements.txt`](requirements.txt) - Python dependencies.
+Key evidence paths:
 
-Key files:
+- [Logs](final/logs/) — headline metrics are parsed from these.
+- [Tables](final/tables/) — checkpoint and summary CSV evidence.
+- [Validation report](final/validation/validation_report.md) — static package checks.
+- [Run instructions](final/docs/RUN_INSTRUCTIONS.md) — reading/inspection guidance.
 
-- [Clean final notebook](notebooks/CarRacingV3_PPO_Final_Submission.ipynb)
-- [Artifact package](artifacts/CarRacingV3_PPO_Final_Submission.zip)
-- [COMPARE5 results](tables/compare5_results.csv)
-- [RANDOM10 results](tables/random10_results.csv)
-- [Training curve](figures/training_curve_clean.png)
-- [Final multi-seed rewards](figures/final_multiseed_rewards_clean.png)
+## Limitations
 
-### Quick Start
+- The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
+- SAC is not claimed to beat PPO.
+- PPO and SAC are not a compute-equivalent comparison.
+- No raw image-input CNN policy was trained in this submission.
+- CarRacing-v3 is not claimed to be solved.
+- HSV-style visual preprocessing can be sensitive to rendering and track appearance changes.
 
-1. Clone the repository.
-2. Install dependencies from [`requirements.txt`](requirements.txt).
-3. Open
-   [`notebooks/CarRacingV3_PPO_Final_Submission.ipynb`](notebooks/CarRacingV3_PPO_Final_Submission.ipynb)
-   in Colab or local Jupyter.
-4. Use
-   [`artifacts/CarRacingV3_PPO_Final_Submission.zip`](artifacts/CarRacingV3_PPO_Final_Submission.zip)
-   or rerun selected evaluation cells.
-5. Reload the PPO model and VecNormalize statistics together.
+## Archived research history
 
-Exact reproduction is not promised on every machine. Package versions,
-rendering backend, and environment differences can affect masks, normalization,
-and rewards. The saved artifacts and CSV-backed evaluation tables are the
-evidence for the submitted run.
+The original V1 PPO-only submission and the dated V2 build snapshot are preserved
+under [`archive/`](archive/) for traceability. They are **not** the final-facing
+submission for this course. V1 results must not be confused with the V2 PPO/SAC
+results above.
 
-### Results
+## References / related tools
 
-| Split    | Mean  | Std.  | Min   | Max   |
-| -------- | ----: | ----: | ----: | ----: |
-| COMPARE5 | 609.1 | 348.2 | 210.8 | 896.0 |
-| RANDOM10 | 614.1 | 347.8 | 55.5  | 929.7 |
-
-Best raw reward: 929.7.
-
-Some seeds reach near-900 reward, showing that the compact road-feature
-representation can produce strong driving episodes. Failure seeds remain near
-55-56 reward, showing incomplete robustness. The best score shows capability;
-the low-reward seeds show that the policy is not uniformly reliable.
-
-### Public Context / Not a Matched Baseline
-
-RL Baselines3 Zoo provides a public CarRacing-v3 PPO configuration using image
-preprocessing, reward normalization, 8 environments, 4e6 timesteps, and
-`CnnPolicy`. Separately, the Hugging Face `frankcholula/ppo_lstm-CarRacing-v3`
-model card describes a public RecurrentPPO / `CnnLstmPolicy` model also trained
-with 4e6 timesteps. These sources are used only as public configuration
-context. They were not rerun in this project and are not treated as matched
-baselines.
-
-This project does not claim to beat RL Zoo. It does not claim to beat the
-Hugging Face `ppo_lstm` model. It does not claim a solved CarRacing-v3
-environment. The measured evidence in this repository belongs only to this
-submitted ray-feature PPO artifact.
-
-References:
-
-- [RL Zoo `ppo.yml`](https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/ppo.yml)
-- [Hugging Face `ppo_lstm-CarRacing-v3`](https://huggingface.co/frankcholula/ppo_lstm-CarRacing-v3)
 - [Gymnasium CarRacing-v3](https://gymnasium.farama.org/environments/box2d/car_racing/)
-- [PPO paper](https://arxiv.org/abs/1707.06347)
+- [Stable-Baselines3](https://stable-baselines3.readthedocs.io/)
 - [Stable-Baselines3 PPO](https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html)
-- [OpenCV colorspaces](https://docs.opencv.org/4.x/df/d9d/tutorial_py_colorspaces.html)
-
-### Limitations
-
-- No matched CNN/RL Zoo baseline was rerun.
-- HSV thresholding depends on visual rendering.
-- Local rays are weak after off-road drift.
-- Action smoothing can delay recovery.
-- Evaluation reward has high variance across seeds.
-- For the original V1 course submission, PPO-vs-SAC comparison was not part of
-  the submitted package; the later V2 folder contains a separate PPO/SAC
-  feature-based update.
-
-### Report and Slides
-
-- [Final report PDF](report/CarRacingV3_PPO_Final_Report.pdf)
-- [Final presentation](slides/CarRacingV3_PPO_Final_Presentation_REBUILT.pptx)
+- [Stable-Baselines3 SAC](https://stable-baselines3.readthedocs.io/en/master/modules/sac.html)
+- [PPO paper (arXiv:1707.06347)](https://arxiv.org/abs/1707.06347)
+- [SAC paper (arXiv:1801.01290)](https://arxiv.org/abs/1801.01290)
+- [OpenCV color spaces](https://docs.opencv.org/4.x/df/d9d/tutorial_py_colorspaces.html)

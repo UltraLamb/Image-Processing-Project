@@ -1,0 +1,3 @@
+branch,status,validated_eval,best_eval,last_observed_step,notes,source_evidence
+PPO completed baseline,completed 500K baseline,"938.87 +/- 7.86 @ 500,000","939.53 +/- 4.09 @ 480,000",501760,"PPO completed 500K baseline; explicit best checkpoint 939.5 @ 480,000",docs/RESULT_SUMMARY.md; PPO completed-baseline training log
+SAC fast-result branch,400K best-checkpoint / partial-run fast-result,"938.51 +/- 4.88 @ 400,000","938.51 +/- 4.88 @ 400,000",418697,No eval checkpoint after 400K; do not describe as completed 500K,docs/RESULT_SUMMARY.md; SAC fast-result training log

@@ -1,1 +1,11 @@
 *.inspect.ndjson
+../local_sources/
+../Image_Processing_Project_Final_Submission/
+local_sources/
+Image_Processing_Project_Final_Submission/
+*.tmp
+~$*
+
+# Exclude duplicate long Overleaf-export-named report PDF(s) from the repo.
+# Official report stays tracked: final/report/Image_Processing_Project_V2_IEEE_Report.pdf
+final/report/Image_Processing_Project__*.pdf
