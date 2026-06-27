@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Image Processing Project</title>
+  <title>Image Processing Project Demo</title>
   <style>
     :root {
       color-scheme: light;
@@ -29,33 +29,33 @@
     }
 
     main {
-      width: min(960px, calc(100% - 32px));
+      width: min(1080px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 48px 0 56px;
+      padding: 42px 0 48px;
     }
 
     header {
+      max-width: 840px;
+      margin: 0 auto 28px;
       text-align: center;
-      margin-bottom: 28px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(2rem, 5vw, 3.1rem);
       line-height: 1.05;
       letter-spacing: 0;
     }
 
     .subtitle {
       margin: 12px auto 0;
-      max-width: 760px;
       color: var(--muted);
       font-size: 1.08rem;
     }
 
     section {
-      margin-top: 28px;
-      padding: 26px;
+      margin-top: 24px;
+      padding: 24px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
@@ -68,20 +68,44 @@
       letter-spacing: 0;
     }
 
+    h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .demo-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
     video {
       display: block;
-      width: min(720px, 100%);
-      margin: 0 auto;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #111827;
     }
 
-    .caption {
-      margin: 14px auto 0;
-      max-width: 720px;
-      text-align: center;
+    .caption,
+    .note {
+      margin: 0;
       color: var(--muted);
+    }
+
+    .metric {
+      margin: 0;
+      color: var(--ink);
+      font-weight: 600;
     }
 
     .links {
@@ -110,11 +134,6 @@
       color: #ffffff;
     }
 
-    .note {
-      margin: 0;
-      color: var(--muted);
-    }
-
     .pipeline {
       display: block;
       width: min(640px, 100%);
@@ -130,10 +149,25 @@
     }
 
     footer {
-      margin-top: 24px;
+      margin-top: 22px;
       text-align: center;
       color: var(--muted);
       font-size: 0.95rem;
+    }
+
+    @media (max-width: 760px) {
+      main {
+        width: min(100% - 20px, 1080px);
+        padding-top: 28px;
+      }
+
+      section {
+        padding: 18px;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -143,22 +177,33 @@
       <h1>Image Processing Project</h1>
       <p class="subtitle">
         Feature-Based Image Processing and Reinforcement Learning for CarRacing-v3.
-        The project converts RGB frames into compact visual road-geometry features,
-        then evaluates the representation with PPO and SAC.
+        Compact road-geometry features are evaluated with PPO and SAC.
       </p>
     </header>
 
     <section aria-labelledby="demo-heading">
-      <h2 id="demo-heading">Demo Video</h2>
-      <video controls playsinline preload="metadata" poster="assets/best_ppo_demo_poster.png">
-        <source src="assets/best_ppo_demo_preview.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-      </video>
-      <p class="caption">
-        PPO completed baseline preview from the saved demo clip. This preview is
-        for presentation only; quantitative claims come from the report, logs,
-        and result tables.
-      </p>
+      <h2 id="demo-heading">Demo Videos</h2>
+      <div class="demo-grid">
+        <article class="demo-card" id="ppo">
+          <h3>PPO Completed Baseline</h3>
+          <video controls playsinline preload="metadata" poster="assets/best_ppo_demo_poster.png">
+            <source src="assets/best_ppo_demo_preview.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <p class="metric">Validated eval: 938.87 +/- 7.86 @ 500,000</p>
+          <p class="caption">Completed 500K baseline preview from the saved best demo clip.</p>
+        </article>
+
+        <article class="demo-card" id="sac">
+          <h3>SAC Fast-Result Branch</h3>
+          <video controls playsinline preload="metadata">
+            <source src="assets/sac_demo_best_preview.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <p class="metric">Validated eval: 938.51 +/- 4.88 @ 400,000</p>
+          <p class="caption">Partial 400K best-checkpoint preview. This is not a completed 500K SAC run.</p>
+        </article>
+      </div>
       <nav class="links" aria-label="Project links">
         <a class="primary" href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures">GitHub Repository</a>
         <a href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures/blob/main/final/videos/README.md">Full Video Gallery</a>
@@ -180,12 +225,12 @@
       </ul>
     </section>
 
-    <section aria-labelledby="results-heading">
-      <h2 id="results-heading">Conservative result note</h2>
+    <section aria-labelledby="limits-heading">
+      <h2 id="limits-heading">Interpretation</h2>
       <p class="note">
         PPO is the completed 500K baseline. SAC is a partial 400K fast-result
         branch and is not claimed to beat PPO. The comparison is not
-        compute-equivalent, this V2 package does not include raw-pixel CNN
+        compute-equivalent, this project package does not include raw-pixel CNN
         policy training, and it does not make a solved-status claim for
         CarRacing-v3.
       </p>

@@ -18,8 +18,9 @@ compact road-geometry features for PPO/SAC control evaluation.
 </p>
 
 <p align="center">
-  <strong>PPO completed baseline</strong> - open the demo page for a pauseable video player.<br>
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/"><strong>Watch demo</strong></a>
+  <strong>PPO and SAC qualitative demos</strong><br>
+  Open the demo page for pauseable PPO and SAC video players with conservative result notes.<br>
+  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/"><strong>Open interactive demo page</strong></a>
   &middot;
   <a href="final/videos/README.md">Full video gallery</a>
 </p>
