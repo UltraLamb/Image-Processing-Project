@@ -10,25 +10,26 @@ compact road-geometry features for PPO/SAC control evaluation.
 ## Demo
 
 <p align="center">
-  <video src="final/videos/previews/best_ppo_demo_preview.mp4"
-         width="640"
-         controls
-         muted
-         loop
-         playsinline
-         preload="metadata"
-         poster="final/figures/best_ppo_demo_poster.png">
-  </video>
+  <a href="final/videos/github_playable/best_ppo_demo.mp4">
+    <img src="final/figures/best_ppo_demo_poster.png"
+         alt="Best PPO demo video preview"
+         width="560">
+  </a>
 </p>
 
 <p align="center">
   <strong>PPO completed baseline</strong> - short preview from the saved best demo clip.<br>
   <a href="final/videos/github_playable/best_ppo_demo.mp4">Open full MP4</a>
-  ·
+  |
   <a href="final/videos/github_playable/best_ppo_demo.mp4?raw=1">Download MP4</a>
-  ·
+  |
+  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/">Open live demo page</a>
+  |
   <a href="final/videos/README.md">Full 12-clip gallery</a>
 </p>
+
+GitHub README pages do not reliably render repo-local HTML video tags, so the
+live demo page provides the pauseable video player.
 
 ## Key Results
 
@@ -42,7 +43,7 @@ a strong but partial fast-result branch whose validated number is the 400K
 checkpoint. The PPO/SAC comparison is not compute-equivalent, and SAC is not
 claimed to beat PPO. CarRacing-v3 is not claimed to be solved.
 
-## Method At A Glance
+## Method at a glance
 
 <p align="center">
   <img src="final/figures/feature_pipeline_cards.png"
@@ -56,7 +57,7 @@ claimed to beat PPO. CarRacing-v3 is not claimed to be solved.
 - Four-frame temporal stack produces a 64D policy input.
 - Standard Stable-Baselines3 PPO/SAC MLP policies evaluate the representation.
 
-No raw image-input CNN policy was trained in this project package.
+This project package does not include raw-pixel CNN policy training.
 
 ## Project Materials
 
@@ -89,7 +90,7 @@ final/                 public-facing final package
 archive/               preserved history, not the current project package
 ```
 
-## How To Review / Reproduce
+## How to review / reproduce
 
 Start with [`final/README.md`](final/README.md), the
 [result summary](final/docs/RESULT_SUMMARY.md), and the final report. The
@@ -109,8 +110,8 @@ Key evidence paths:
 - The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
 - SAC is not claimed to beat PPO.
 - PPO and SAC are not a compute-equivalent comparison.
-- No raw image-input CNN policy was trained in this project package.
-- CarRacing-v3 is not claimed to be solved.
+- This project package does not include raw-pixel CNN policy training.
+- The project does not make a solved-status claim for CarRacing-v3.
 - HSV-style visual preprocessing can be sensitive to rendering and track appearance changes.
 
 ## Archived Research History

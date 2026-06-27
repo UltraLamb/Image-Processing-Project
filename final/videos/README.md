@@ -15,6 +15,9 @@ to preview MP4s when the MP4 metadata is at the end of the file, so
 [`github_playable/`](github_playable/) contains stream-copy playback versions
 with the same H.264 video, `yuv420p` pixel format, and faststart metadata.
 [`previews/`](previews/) contains short MP4 preview clips for README display.
+The root README uses a poster image plus links because GitHub strips repo-local
+video tags from rendered README pages. The pauseable player is provided by the
+GitHub Pages demo page.
 
 Use the `playable` links first. If GitHub does not play a video inline, use the
 download link.
@@ -62,4 +65,4 @@ retraining, reevaluation, or numerical changes.
 - SAC clips come from the validated 400K best checkpoint of a partial run; they
   are not evidence of a completed 500K SAC run.
 - PPO and SAC are not a compute-equivalent comparison.
-- These clips do not show that CarRacing-v3 is solved.
+- These clips are not a solved-status claim for CarRacing-v3.

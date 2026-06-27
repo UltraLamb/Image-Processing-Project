@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Processing Project</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #5d6778;
+      --line: #d9dde5;
+      --accent: #1f6feb;
+      --accent-dark: #174ea6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 56px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 12px auto 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    section {
+      margin-top: 28px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.06);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      letter-spacing: 0;
+    }
+
+    video {
+      display: block;
+      width: min(720px, 100%);
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #111827;
+    }
+
+    .caption {
+      margin: 14px auto 0;
+      max-width: 720px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 13px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--accent-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .links a.primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .pipeline {
+      display: block;
+      width: min(640px, 100%);
+      margin: 0 auto 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Image Processing Project</h1>
+      <p class="subtitle">
+        Feature-Based Image Processing and Reinforcement Learning for CarRacing-v3.
+        The project converts RGB frames into compact visual road-geometry features,
+        then evaluates the representation with PPO and SAC.
+      </p>
+    </header>
+
+    <section aria-labelledby="demo-heading">
+      <h2 id="demo-heading">Demo Video</h2>
+      <video controls playsinline preload="metadata" poster="assets/best_ppo_demo_poster.png">
+        <source src="assets/best_ppo_demo_preview.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <p class="caption">
+        PPO completed baseline preview from the saved demo clip. This preview is
+        for presentation only; quantitative claims come from the report, logs,
+        and result tables.
+      </p>
+      <nav class="links" aria-label="Project links">
+        <a class="primary" href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures">GitHub Repository</a>
+        <a href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures/blob/main/final/videos/github_playable/best_ppo_demo.mp4">Open Full MP4</a>
+        <a href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures/blob/main/final/videos/README.md">Full Video Gallery</a>
+        <a href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures/blob/main/final/report/Image_Processing_Project_V2_IEEE_Report.pdf">Report PDF</a>
+        <a href="https://github.com/UltraLamb/CarRacingV3-PPO-RayFeatures/blob/main/final/slides/Image_Processing_Project_Final_Presentation.pdf">Slides PDF</a>
+      </nav>
+    </section>
+
+    <section aria-labelledby="method-heading">
+      <h2 id="method-heading">Method at a glance</h2>
+      <img class="pipeline"
+           src="assets/feature_pipeline_cards.png"
+           alt="Feature-based visual-control pipeline: frame, perception, geometry, state vector, temporal context, and control">
+      <ul>
+        <li>RGB frame from Gymnasium CarRacing-v3.</li>
+        <li>HSV road mask and ray/radar geometry features.</li>
+        <li>16D base observation with a four-frame stack for a 64D policy input.</li>
+        <li>PPO and SAC MLP policies used as downstream evaluation methods.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="results-heading">
+      <h2 id="results-heading">Conservative result note</h2>
+      <p class="note">
+        PPO is the completed 500K baseline. SAC is a partial 400K fast-result
+        branch and is not claimed to beat PPO. The comparison is not
+        compute-equivalent, this V2 package does not include raw-pixel CNN
+        policy training, and it does not make a solved-status claim for
+        CarRacing-v3.
+      </p>
+    </section>
+
+    <footer>
+      Before repository rename:
+      https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/
+      <br>
+      After repository rename:
+      https://ultralamb.github.io/Image-Processing-Project/
+    </footer>
+  </main>
+</body>
+</html>
