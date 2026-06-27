@@ -14,6 +14,8 @@ The original evidence MP4 files remain in this folder. GitHub sometimes fails
 to preview MP4s when the MP4 metadata is at the end of the file, so
 [`github_playable/`](github_playable/) contains stream-copy playback versions
 with the same H.264 video, `yuv420p` pixel format, and faststart metadata.
+[`previews/`](previews/) contains lightweight animated GIF previews for README
+display.
 
 Use the `playable` links first. If GitHub does not play a video inline, use the
 download link.

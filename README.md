@@ -11,23 +11,22 @@ image-processing pipeline; the reinforcement-learning algorithms are evaluation
 tools, not the novelty.
 
 <p align="center">
-  <img src="final/figures/feature_pipeline_cards.png" alt="Feature-based visual-control pipeline: frame, perception, geometry, state vector, temporal context, and control" width="720">
+  <img src="final/figures/feature_pipeline_cards.png" alt="Feature-based visual-control pipeline: frame, perception, geometry, state vector, temporal context, and control" width="560">
 </p>
 
 ## Demo preview
 
 <p align="center">
   <a href="final/videos/github_playable/best_ppo_demo.mp4">
-    <img src="final/figures/best_ppo_demo_poster.png" alt="Best PPO baseline demo (raw reward 936)" width="480">
+    <img src="final/videos/previews/best_ppo_demo_preview.gif" alt="Short animated preview from the best PPO demo clip" width="480">
   </a>
   <br>
   <em>
-    <a href="final/videos/github_playable/best_ppo_demo.mp4">Watch demo video</a>
+    Short animated preview from the saved PPO demo clip.
+    <a href="final/videos/github_playable/best_ppo_demo.mp4">Watch / open MP4</a>
     /
     <a href="final/videos/github_playable/best_ppo_demo.mp4?raw=1">download MP4</a>.
-    If GitHub does not play it inline, open or download the MP4.
-    The full 12-clip gallery is in
-    <a href="final/videos/README.md">final/videos/README.md</a>.
+    <a href="final/videos/README.md">Full video gallery</a>.
   </em>
 </p>
 
