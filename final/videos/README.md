@@ -1,24 +1,25 @@
 # Demo Video Gallery
 
-This folder contains the qualitative demo clips for the final Image Processing
-Project package. The clips were extracted from saved PPO and SAC notebook
-outputs; they are visual demonstrations, not new evaluation runs.
-
-For the main presentation view, open the GitHub Pages demo:
+This page is the compact public gallery for the final Image Processing Project
+demo clips. The videos were extracted from saved PPO and SAC notebook outputs;
+they are visual demonstrations, not new evaluation runs.
 
 <p align="center">
-  <a href="https://ultralamb.github.io/Image-Processing-Project/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
+  <a href="https://ultralamb.github.io/Image-Processing-Project/"><strong>Open PPO + SAC demo page</strong></a>
 </p>
+
+Use the demo page for the clean playback view. Use the tables below when you
+need to open a specific clip.
 
 Quantitative claims should be read from [`../docs/RESULT_SUMMARY.md`](../docs/RESULT_SUMMARY.md)
 and the training logs.
 
 ## Featured Clips
 
-| Branch | Status | Validated eval | Featured clip | Open | Download |
-| ------ | ------ | -------------- | ------------- | ---- | -------- |
-| PPO completed baseline | Completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | `best_ppo_demo.mp4` | [open MP4](github_playable/best_ppo_demo.mp4) | [download](github_playable/best_ppo_demo.mp4?raw=1) |
-| SAC fast-result branch | Partial 400K best-checkpoint | 938.51 +/- 4.88 @ 400,000 | `sac_demo_best.mp4` | [open MP4](github_playable/sac_demo_best.mp4) | [download](github_playable/sac_demo_best.mp4?raw=1) |
+| Branch | Status | Validated eval | Clip |
+| ------ | ------ | -------------- | ---- |
+| PPO completed baseline | Completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | [best_ppo_demo.mp4](github_playable/best_ppo_demo.mp4) |
+| SAC fast-result branch | Partial 400K best-checkpoint | 938.51 +/- 4.88 @ 400,000 | [sac_demo_best.mp4](github_playable/sac_demo_best.mp4) |
 
 ## Playback Notes
 
@@ -28,30 +29,31 @@ to preview MP4s when metadata is at the end of the file, so
 copies with H.264 video, `yuv420p` pixel format, and faststart metadata.
 [`previews/`](previews/) contains short preview clips used for project display.
 
-Use the `open MP4` links first. If GitHub does not play a video inline, use the
-download link.
+Open the MP4 links directly for browser playback. If you need a local copy,
+open the MP4 page and use GitHub's **Download** button or your browser's save
+command.
 
 ## Full PPO Set
 
-| Clip | Seed | Raw reward | Duration | Open | Download |
-| ---- | ---: | ---------: | -------: | ---- | -------- |
-| `best_ppo_demo.mp4` | 136505587 | 936.0 | 10.7s | [open MP4](github_playable/best_ppo_demo.mp4) | [download](github_playable/best_ppo_demo.mp4?raw=1) |
-| `ppo_demo_best_3.mp4` | 1181241943 | 933.0 | 11.2s | [open MP4](github_playable/ppo_demo_best_3.mp4) | [download](github_playable/ppo_demo_best_3.mp4?raw=1) |
-| `ppo_demo_best_2.mp4` | 107420369 | 932.9 | 11.2s | [open MP4](github_playable/ppo_demo_best_2.mp4) | [download](github_playable/ppo_demo_best_2.mp4?raw=1) |
-| `ppo_demo_limitation_1.mp4` | 1051802512 | 918.4 | 13.6s | [open MP4](github_playable/ppo_demo_limitation_1.mp4) | [download](github_playable/ppo_demo_limitation_1.mp4?raw=1) |
-| `ppo_demo_limitation_2.mp4` | 123 | 913.4 | 14.5s | [open MP4](github_playable/ppo_demo_limitation_2.mp4) | [download](github_playable/ppo_demo_limitation_2.mp4?raw=1) |
-| `ppo_demo_limitation_3.mp4` | 599310825 | 911.2 | 14.8s | [open MP4](github_playable/ppo_demo_limitation_3.mp4) | [download](github_playable/ppo_demo_limitation_3.mp4?raw=1) |
+| Clip | Seed | Raw reward | Duration |
+| ---- | ---: | ---------: | -------: |
+| [best_ppo_demo.mp4](github_playable/best_ppo_demo.mp4) | 136505587 | 936.0 | 10.7s |
+| [ppo_demo_best_3.mp4](github_playable/ppo_demo_best_3.mp4) | 1181241943 | 933.0 | 11.2s |
+| [ppo_demo_best_2.mp4](github_playable/ppo_demo_best_2.mp4) | 107420369 | 932.9 | 11.2s |
+| [ppo_demo_limitation_1.mp4](github_playable/ppo_demo_limitation_1.mp4) | 1051802512 | 918.4 | 13.6s |
+| [ppo_demo_limitation_2.mp4](github_playable/ppo_demo_limitation_2.mp4) | 123 | 913.4 | 14.5s |
+| [ppo_demo_limitation_3.mp4](github_playable/ppo_demo_limitation_3.mp4) | 599310825 | 911.2 | 14.8s |
 
 ## Full SAC Set
 
-| Clip | Seed | Raw reward | Duration | Open | Download |
-| ---- | ---: | ---------: | -------: | ---- | -------- |
-| `sac_demo_best.mp4` | 136505587 | 933.7 | 5.5s | [open MP4](github_playable/sac_demo_best.mp4) | [download](github_playable/sac_demo_best.mp4?raw=1) |
-| `sac_demo_best_2.mp4` | 107420369 | 933.3 | 5.6s | [open MP4](github_playable/sac_demo_best_2.mp4) | [download](github_playable/sac_demo_best_2.mp4?raw=1) |
-| `sac_demo_best_3.mp4` | 1181241943 | 931.1 | 5.8s | [open MP4](github_playable/sac_demo_best_3.mp4) | [download](github_playable/sac_demo_best_3.mp4?raw=1) |
-| `sac_demo_limitation_1.mp4` | 1051802512 | 914.4 | 7.1s | [open MP4](github_playable/sac_demo_limitation_1.mp4) | [download](github_playable/sac_demo_limitation_1.mp4?raw=1) |
-| `sac_demo_limitation_2.mp4` | 123 | 911.0 | 7.4s | [open MP4](github_playable/sac_demo_limitation_2.mp4) | [download](github_playable/sac_demo_limitation_2.mp4?raw=1) |
-| `sac_demo_limitation_3.mp4` | 599310825 | 908.7 | 7.6s | [open MP4](github_playable/sac_demo_limitation_3.mp4) | [download](github_playable/sac_demo_limitation_3.mp4?raw=1) |
+| Clip | Seed | Raw reward | Duration |
+| ---- | ---: | ---------: | -------: |
+| [sac_demo_best.mp4](github_playable/sac_demo_best.mp4) | 136505587 | 933.7 | 5.5s |
+| [sac_demo_best_2.mp4](github_playable/sac_demo_best_2.mp4) | 107420369 | 933.3 | 5.6s |
+| [sac_demo_best_3.mp4](github_playable/sac_demo_best_3.mp4) | 1181241943 | 931.1 | 5.8s |
+| [sac_demo_limitation_1.mp4](github_playable/sac_demo_limitation_1.mp4) | 1051802512 | 914.4 | 7.1s |
+| [sac_demo_limitation_2.mp4](github_playable/sac_demo_limitation_2.mp4) | 123 | 911.0 | 7.4s |
+| [sac_demo_limitation_3.mp4](github_playable/sac_demo_limitation_3.mp4) | 599310825 | 908.7 | 7.6s |
 
 ## Interpretation
 
