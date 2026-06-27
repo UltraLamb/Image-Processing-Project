@@ -21,7 +21,7 @@ original 12-slide deck is archived at
 
 Visual asset paths (relative to `final/`):
 
-- Pipeline: `figures/feature_pipeline_schematic.png`
+- Pipeline: `figures/feature_pipeline_cards.png`
 - Training curves: `figures/training_curve_ppo_sac.png`
 - Generalization (secondary): `figures/generalization_summary.png`
 - Best PPO poster: `figures/best_ppo_demo_poster.png`
@@ -34,7 +34,7 @@ Visual asset paths (relative to `final/`):
 - **Image Processing Project**
 - Feature-Based Image Processing and Reinforcement Learning for CarRacing-v3
 - Joe — Student ID 1103820
-- Visual: `figures/feature_pipeline_schematic.png` (as banner)
+- Visual: `figures/feature_pipeline_cards.png` (as banner)
 
 ## Slide 2 — Motivation and Project Goal
 
@@ -68,7 +68,7 @@ Visual asset paths (relative to `final/`):
 - HSV separates road/grass by color, robust to brightness.
 - Road mask = bitwise complement of grass band.
 - Clean with 3x3 morphological opening; optional connected-component cleanup.
-- Visual: `figures/feature_pipeline_schematic.png`.
+- Visual: `figures/feature_pipeline_cards.png`.
 
 ## Slide 6 — Road-Mask and Ray/Radar Feature Extraction
 

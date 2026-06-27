@@ -2,7 +2,7 @@
 
 **Feature-Based Image Processing and Reinforcement Learning for CarRacing-v3**
 
-_Joe · Student ID 1103820_
+_Joe / Student ID 1103820_
 
 This project turns rendered RGB driving frames into a compact, inspectable
 visual feature representation, then uses off-the-shelf PPO and SAC policies as
@@ -11,23 +11,29 @@ image-processing pipeline; the reinforcement-learning algorithms are evaluation
 tools, not the novelty.
 
 <p align="center">
-  <img src="final/figures/feature_pipeline_schematic.png" alt="Image processing pipeline: RGB frame -> HSV road mask -> ray/radar features -> compact observation -> PPO/SAC policy" width="720">
+  <img src="final/figures/feature_pipeline_cards.png" alt="Feature-based visual-control pipeline: frame, perception, geometry, state vector, temporal context, and control" width="720">
 </p>
 
 ## Demo preview
 
 <p align="center">
-  <a href="final/videos/best_ppo_demo.mp4">
+  <a href="final/videos/github_playable/best_ppo_demo.mp4">
     <img src="final/figures/best_ppo_demo_poster.png" alt="Best PPO baseline demo (raw reward 936)" width="480">
   </a>
   <br>
-  <em>Best PPO baseline clip (raw reward 936). The full 12-clip gallery is in
-  <a href="final/videos/README.md">final/videos/README.md</a>.</em>
+  <em>
+    <a href="final/videos/github_playable/best_ppo_demo.mp4">Watch demo video</a>
+    /
+    <a href="final/videos/github_playable/best_ppo_demo.mp4?raw=1">download MP4</a>.
+    If GitHub does not play it inline, open or download the MP4.
+    The full 12-clip gallery is in
+    <a href="final/videos/README.md">final/videos/README.md</a>.
+  </em>
 </p>
 
 ---
 
-## Final submission materials
+## Project materials
 
 | Material | Link |
 | -------- | ---- |
@@ -94,30 +100,30 @@ archive/               preserved history (not the final submission)
 Start with [`final/README.md`](final/README.md), the
 [result summary](final/docs/RESULT_SUMMARY.md), and the final report. The
 notebooks are kept in safe report/evaluation mode and include saved output
-evidence — they do not require retraining to inspect. Do not rerun training
+evidence; they do not require retraining to inspect. Do not rerun training
 unless you intentionally change the project scope.
 
 Key evidence paths:
 
-- [Logs](final/logs/) — headline metrics are parsed from these.
-- [Tables](final/tables/) — checkpoint and summary CSV evidence.
-- [Validation report](final/validation/validation_report.md) — static package checks.
-- [Run instructions](final/docs/RUN_INSTRUCTIONS.md) — reading/inspection guidance.
+- [Logs](final/logs/) - headline metrics are parsed from these.
+- [Tables](final/tables/) - checkpoint and summary CSV evidence.
+- [Validation report](final/validation/validation_report.md) - static package checks.
+- [Run instructions](final/docs/RUN_INSTRUCTIONS.md) - reading/inspection guidance.
 
 ## Limitations
 
 - The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
 - SAC is not claimed to beat PPO.
 - PPO and SAC are not a compute-equivalent comparison.
-- No raw image-input CNN policy was trained in this submission.
+- No raw image-input CNN policy was trained in this project package.
 - CarRacing-v3 is not claimed to be solved.
 - HSV-style visual preprocessing can be sensitive to rendering and track appearance changes.
 
 ## Archived research history
 
 The original V1 PPO-only submission and the dated V2 build snapshot are preserved
-under [`archive/`](archive/) for traceability. They are **not** the final-facing
-submission for this course. V1 results must not be confused with the V2 PPO/SAC
+under [`archive/`](archive/) for traceability. They are **not** the current
+public project package. V1 results must not be confused with the V2 PPO/SAC
 results above.
 
 ## References / related tools

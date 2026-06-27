@@ -16,7 +16,7 @@ this GitHub packaging step.
 | path | source evidence | use |
 |---|---|---|
 | `figures/checkpoint_comparison.png` | `docs/RESULT_SUMMARY.md`; training logs | PPO/SAC headline checkpoint comparison |
-| `figures/feature_pipeline_schematic.png` | project method description | compact feature pipeline schematic |
+| `figures/feature_pipeline_cards.png` | project method description | card-style compact visual-control pipeline |
 | `figures/generalization_summary.png` | `tables/notebook_output_generalization_summary.csv` | tested-seed summary |
 | `figures/training_curve_ppo_sac.png` | checkpoint CSV tables | PPO/SAC learning curve |
 | `tables/compute_budget.csv` | `docs/RESULT_SUMMARY.md`; training logs | budget/status disclosure |
