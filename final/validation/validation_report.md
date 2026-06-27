@@ -8,7 +8,7 @@ training, or result generation were executed._
 | status | check | detail |
 | ------ | ----- | ------ |
 | PASS | final/ folder map complete | report, overleaf, slides, notebooks, figures, tables, videos, logs, docs |
-| PASS | root README.md / requirements.txt / DATASET.md exist | |
+| PASS | root README.md / requirements.txt and final/docs/dataset.md exist | |
 | PASS | final presentation PPTX exists | 15 slides |
 | PASS | final presentation PDF exists | 15 pages |
 | PASS | Overleaf package zip exists | main.tex + references.bib + README_Overleaf.md + 3 figures |

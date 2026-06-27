@@ -26,7 +26,7 @@ git push origin main
 If you prefer a clean slate instead of pushing local history:
 
 - **Option A (web UI):** on GitHub, delete the old top-level folders and upload
-  the cleaned `final/`, `archive/`, `README.md`, `requirements.txt`, `DATASET.md`.
+  the cleaned `final/`, `archive/`, `README.md`, and `requirements.txt`.
 - **Option B (fresh clone):** `git clone` the remote into a new folder, copy the
   cleaned `github_repo/` contents over it, then `git add -A && commit && push`.
 
