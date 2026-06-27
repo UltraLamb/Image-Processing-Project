@@ -1,4 +1,14 @@
-# Deployment and Rename Guide
+# Legacy Deployment Guide
+
+This file is preserved for historical traceability only. It describes an earlier
+pre-deployment state and is not part of the current public final package.
+
+Current repository: https://github.com/UltraLamb/Image-Processing-Project  
+Current GitHub Pages demo: https://ultralamb.github.io/Image-Processing-Project/
+
+## Original Note
+
+## Deployment and Rename Guide
 
 Manual steps to publish the cleaned repository and submit the course link. None of
 this is automated — run it yourself after reviewing the working tree.

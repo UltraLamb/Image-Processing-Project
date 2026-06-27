@@ -62,4 +62,7 @@ command.
   are not evidence of a full-length SAC run.
 - PPO and SAC are not a compute-equivalent comparison.
 - These clips are not an environment-completion claim for CarRacing-v3.
+- The limitation clips are qualitative examples and are not all
+  catastrophic-failure episodes; raw rewards are reported from the saved video
+  metadata when available.
 - Playback copies are presentation assets only; they do not change numerical evidence.
