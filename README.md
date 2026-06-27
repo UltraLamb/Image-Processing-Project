@@ -63,8 +63,8 @@ This project package does not include raw-pixel CNN policy training.
 
 | Material | Link |
 | -------- | ---- |
-| Overleaf / LaTeX package | [`final/overleaf/Image_Processing_Project_Overleaf_Package.zip`](final/overleaf/Image_Processing_Project_Overleaf_Package.zip) |
-| Report PDF export instructions | [`MANUAL_OVERLEAF_EXPORT_REQUIRED.md`](final/report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md) |
+| Final IEEE-format technical report PDF | [`1103820_Joe_Image_Processing_Project_V2_IEEE-format report.pdf`](final/report/1103820_Joe_Image_Processing_Project_V2_IEEE-format%20report.pdf) |
+| Overleaf / LaTeX source package | [`final/overleaf/Image_Processing_Project_Overleaf_Package.zip`](final/overleaf/Image_Processing_Project_Overleaf_Package.zip) |
 | Final presentation (PDF) | [`final/slides/Image_Processing_Project_Final_Presentation.pdf`](final/slides/Image_Processing_Project_Final_Presentation.pdf) |
 | Final presentation (PPTX) | [`final/slides/Image_Processing_Project_Final_Presentation.pptx`](final/slides/Image_Processing_Project_Final_Presentation.pptx) |
 | PPO notebook | [`final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb`](final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb) |
@@ -77,7 +77,7 @@ This project package does not include raw-pixel CNN policy training.
 
 ```text
 final/                 public-facing final package
-  report/              report export instructions
+  report/              final IEEE-format report PDF
   overleaf/            LaTeX source package for the report
   slides/              final presentation (PPTX / PDF)
   notebooks/           PPO and SAC notebooks with saved outputs
@@ -94,7 +94,7 @@ archive/               preserved history, not the current project package
 
 Start with [`final/README.md`](final/README.md), the
 [result summary](final/docs/RESULT_SUMMARY.md), and the
-[report export note](final/report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md). The
+[Final IEEE-format technical report PDF](final/report/1103820_Joe_Image_Processing_Project_V2_IEEE-format%20report.pdf). The
 notebooks are kept in safe report/evaluation mode and include saved output
 evidence; they do not require retraining to inspect. Do not rerun training
 unless you intentionally change the project scope.

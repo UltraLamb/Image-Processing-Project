@@ -1,20 +1,15 @@
 # Final report
 
-The official report source is the Overleaf package:
+The official final report PDF is:
 
-`../overleaf/Image_Processing_Project_Overleaf_Package.zip`
+[`1103820_Joe_Image_Processing_Project_V2_IEEE-format report.pdf`](1103820_Joe_Image_Processing_Project_V2_IEEE-format%20report.pdf)
 
-This checkout does not include a verified final PDF export. Compile the Overleaf
-package with pdfLaTeX, then place the downloaded file here as:
+This is an IEEE-format technical report compiled from the LaTeX source in `../overleaf/`.
 
-`Image_Processing_Project_V2_IEEE_Report.pdf`
+The Overleaf / LaTeX source package is available at:
 
-See [`MANUAL_OVERLEAF_EXPORT_REQUIRED.md`](MANUAL_OVERLEAF_EXPORT_REQUIRED.md)
-for the exact manual export steps.
+[`../overleaf/Image_Processing_Project_Overleaf_Package.zip`](../overleaf/Image_Processing_Project_Overleaf_Package.zip)
 
-The previous DOCX writing material and non-authoritative PDF preview were moved
-to `archive/stale_editable_material/` so active final-facing docs do not present
-them as official deliverables.
+The archived DOCX and previous PDF preview are kept only for traceability under `archive/stale_editable_material/` and are not active final deliverables.
 
-_This is an IEEE-style / conference-format technical report, not a published,
-accepted, or official IEEE publication._
+This is an IEEE-format / conference-style technical report, not a published, accepted, or official IEEE publication.

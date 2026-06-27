@@ -8,8 +8,8 @@ used as downstream evaluation methods on Gymnasium `CarRacing-v3`.
 
 ## Final report and presentation
 
-- [Overleaf / LaTeX package](overleaf/Image_Processing_Project_Overleaf_Package.zip)
-- [Report PDF export instructions](report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md)
+- [Final IEEE-format technical report PDF](report/1103820_Joe_Image_Processing_Project_V2_IEEE-format%20report.pdf)
+- [Overleaf / LaTeX source package](overleaf/Image_Processing_Project_Overleaf_Package.zip)
 - [Final presentation PDF](slides/Image_Processing_Project_Final_Presentation.pdf)
 - [Final presentation PPTX](slides/Image_Processing_Project_Final_Presentation.pptx)
 
@@ -48,8 +48,8 @@ submission.
 
 | Evidence | Path | Purpose |
 | -------- | ---- | ------- |
+| Final report PDF | [`report/1103820_Joe_Image_Processing_Project_V2_IEEE-format report.pdf`](report/1103820_Joe_Image_Processing_Project_V2_IEEE-format%20report.pdf) | Final IEEE-format technical report PDF |
 | Overleaf package | [`overleaf/`](overleaf/) | LaTeX source for the IEEE-style report |
-| Report export instructions | [`report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md`](report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md) | Manual Overleaf PDF export steps |
 | Final slides | [`slides/`](slides/) | Course-facing presentation |
 | PPO notebook | [`notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb`](notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb) | Completed PPO baseline notebook with saved outputs |
 | SAC notebook | [`notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb`](notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb) | SAC fast-result notebook with saved outputs |
