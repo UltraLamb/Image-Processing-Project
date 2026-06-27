@@ -80,6 +80,27 @@
       gap: 18px;
     }
 
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .result-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f9fafc;
+    }
+
+    .result-card a {
+      color: var(--accent-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
     .demo-card {
       display: flex;
       flex-direction: column;
@@ -168,6 +189,10 @@
       .demo-grid {
         grid-template-columns: 1fr;
       }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -183,6 +208,18 @@
 
     <section aria-labelledby="demo-heading">
       <h2 id="demo-heading">Demo Videos</h2>
+      <div class="result-grid" aria-label="Demo summary">
+        <div class="result-card">
+          <h3><a href="#ppo">PPO Completed Baseline</a></h3>
+          <p class="metric">938.87 +/- 7.86 @ 500,000</p>
+          <p class="caption">Completed 500K baseline.</p>
+        </div>
+        <div class="result-card">
+          <h3><a href="#sac">SAC Fast-Result Branch</a></h3>
+          <p class="metric">938.51 +/- 4.88 @ 400,000</p>
+          <p class="caption">Partial 400K best-checkpoint, not a completed 500K run.</p>
+        </div>
+      </div>
       <div class="demo-grid">
         <article class="demo-card" id="ppo">
           <h3>PPO Completed Baseline</h3>

@@ -7,7 +7,7 @@ outputs; they are visual demonstrations, not new evaluation runs.
 For the main presentation view, open the GitHub Pages demo:
 
 <p align="center">
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/"><strong>Open PPO + SAC demo page</strong></a>
+  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
 </p>
 
 Quantitative claims should be read from [`../docs/RESULT_SUMMARY.md`](../docs/RESULT_SUMMARY.md)
