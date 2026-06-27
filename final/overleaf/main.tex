@@ -514,16 +514,15 @@ color appearance and can be sensitive to rendering or track-art changes; the
 method is not claimed to be uniformly robust. Fourth, the project does not claim
 that CarRacing-v3 is solved.
 
-\emph{Failure modes.} The aggregate rewards hide a heavy-tailed failure
-distribution. On most seeds the policies stay in the low-930s to low-940s band,
-but a small number of seeds fail badly: two representative failure seeds,
-$599310825$ and $440213415$, score only about $55$--$56$ raw reward. These cases
-are typically triggered by a sharp bend that the forward fan does not resolve in
-time, or by an unstable recovery after a brief grass excursion, during which the
-connected-component stage momentarily loses the road region. This long tail is
-the main reason the method is described as promising rather than uniformly
-robust, and it is why results are reported as multi-seed statistics rather than a
-single best episode.
+\emph{Failure modes.} The aggregate rewards still hide behavioral limitations.
+Even when an episode receives a high raw reward, the driving behavior may include
+unstable recovery after sharp turns, brief grass excursions, or moments where
+the road mask and ray fan do not anticipate the next turn early enough.
+Therefore, the limitation clips should be interpreted as qualitative examples of
+remaining control and perception weaknesses, not necessarily as catastrophic
+low-reward failures. This long-tail behavior is the main reason the method is
+described as promising rather than uniformly robust, and it is why results are
+reported as multi-seed statistics rather than a single best episode.
 
 \section{Conclusion}
 
