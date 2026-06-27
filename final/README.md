@@ -34,7 +34,7 @@ feature pipeline; only the downstream policy optimization method changes.
 | PPO completed baseline | Completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | 939.53 +/- 4.09 @ 480,000 | 501,760 |
 | SAC fast-result branch | Partial 400K best-checkpoint / fast-result branch | 938.51 +/- 4.88 @ 400,000 | 938.51 +/- 4.88 @ 400,000 | 418,697 |
 
-SAC is not presented as completing 500K, beating PPO, or providing a
+SAC is not presented as completing 500K, outperforming PPO, or providing a
 compute-equivalent comparison.
 
 ## Image Processing Pipeline
@@ -92,8 +92,8 @@ inspection guidance. This final package does not require retraining.
 ## Limitations
 
 - The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
-- SAC is not claimed to beat PPO.
+- SAC is not presented as outperforming PPO.
 - PPO and SAC are not compute-equivalent.
 - No raw image-input CNN policy was trained in this submission.
-- The project does not claim that CarRacing-v3 is solved.
+- The project makes no environment-completion claim for CarRacing-v3.
 - HSV-style preprocessing can be sensitive to visual rendering changes.

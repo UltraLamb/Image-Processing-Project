@@ -7,7 +7,7 @@ outputs; they are visual demonstrations, not new evaluation runs.
 For the main presentation view, open the GitHub Pages demo:
 
 <p align="center">
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
+  <a href="https://ultralamb.github.io/Image-Processing-Project/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
 </p>
 
 Quantitative claims should be read from [`../docs/RESULT_SUMMARY.md`](../docs/RESULT_SUMMARY.md)
@@ -57,7 +57,7 @@ download link.
 
 - PPO clips come from the completed 500K baseline.
 - SAC clips come from the validated 400K best checkpoint of a partial run; they
-  are not evidence of a completed 500K SAC run.
+  are not evidence of a full-length SAC run.
 - PPO and SAC are not a compute-equivalent comparison.
-- These clips are not a solved-status claim for CarRacing-v3.
+- These clips are not an environment-completion claim for CarRacing-v3.
 - Playback copies are presentation assets only; they do not change numerical evidence.

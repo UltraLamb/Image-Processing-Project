@@ -10,7 +10,7 @@ compact road-geometry features for PPO/SAC control evaluation.
 ## Demo
 
 <p align="center">
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/?v=ppo-sac-demo">
+  <a href="https://ultralamb.github.io/Image-Processing-Project/?v=ppo-sac-demo">
     <img src="final/figures/best_ppo_demo_poster.png"
          alt="Best PPO demo video preview"
          width="560">
@@ -18,9 +18,9 @@ compact road-geometry features for PPO/SAC control evaluation.
 </p>
 
 <p align="center">
-  <strong>PPO and SAC qualitative demos</strong><br>
-  Open the demo page for pauseable PPO and SAC video players with conservative result notes.<br>
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
+  <strong>PPO and SAC demo videos</strong><br>
+  Open the demo page to view pauseable PPO and SAC preview clips with conservative result notes.<br>
+  <a href="https://ultralamb.github.io/Image-Processing-Project/?v=ppo-sac-demo"><strong>Open PPO + SAC demo page</strong></a>
   &middot;
   <a href="final/videos/README.md">Full video gallery</a>
 </p>
@@ -35,7 +35,7 @@ compact road-geometry features for PPO/SAC control evaluation.
 **Conservative interpretation.** PPO is a fully completed 500K baseline. SAC is
 a strong but partial fast-result branch whose validated number is the 400K
 checkpoint. The PPO/SAC comparison is not compute-equivalent, and SAC is not
-claimed to beat PPO. CarRacing-v3 is not claimed to be solved.
+presented as outperforming PPO. The project makes no environment-completion claim.
 
 ## Method at a glance
 
@@ -102,10 +102,10 @@ Key evidence paths:
 ## Limitations
 
 - The SAC fast-result branch is a partial 400K checkpoint, not a completed 500K run.
-- SAC is not claimed to beat PPO.
+- SAC is not presented as outperforming PPO.
 - PPO and SAC are not a compute-equivalent comparison.
 - This project package does not include raw-pixel CNN policy training.
-- The project does not make a solved-status claim for CarRacing-v3.
+- The project makes no environment-completion claim for CarRacing-v3.
 - HSV-style visual preprocessing can be sensitive to rendering and track appearance changes.
 
 ## Archived Research History
