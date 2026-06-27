@@ -11,8 +11,9 @@ recommended format for broad browser compatibility.
 
 If an inline README video is still desired, upload
 `final/videos/previews/best_ppo_demo_preview.mp4` to a GitHub issue or comment
-box, copy the generated URL, and place that URL alone under the README demo
-section. Only replace the poster block after the rendered README has been
-visually verified.
+box, wait for GitHub to finish the upload, copy the generated URL, and place
+that URL alone under the README demo section. The issue or comment does not
+need to be submitted if the URL has already been generated. Only replace the
+poster block after the rendered README has been visually verified.
 
 Do not use a placeholder URL in the README.

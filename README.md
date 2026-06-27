@@ -10,7 +10,7 @@ compact road-geometry features for PPO/SAC control evaluation.
 ## Demo
 
 <p align="center">
-  <a href="final/videos/github_playable/best_ppo_demo.mp4">
+  <a href="https://ultralamb.github.io/Image-Processing-Project/">
     <img src="final/figures/best_ppo_demo_poster.png"
          alt="Best PPO demo video preview"
          width="560">
@@ -18,13 +18,9 @@ compact road-geometry features for PPO/SAC control evaluation.
 </p>
 
 <p align="center">
-  <strong>PPO completed baseline</strong> - short preview from the saved best demo clip.<br>
-  <a href="final/videos/github_playable/best_ppo_demo.mp4">Open full MP4</a>
-  |
-  <a href="final/videos/github_playable/best_ppo_demo.mp4?raw=1">Download MP4</a>
-  |
-  <a href="https://ultralamb.github.io/CarRacingV3-PPO-RayFeatures/">Open live demo page</a>
-  |
+  <strong>PPO completed baseline</strong> - open the live demo page for a pauseable video player.<br>
+  <a href="https://ultralamb.github.io/Image-Processing-Project/"><strong>Open live demo page</strong></a>
+  &middot;
   <a href="final/videos/README.md">Full 12-clip gallery</a>
 </p>
 
