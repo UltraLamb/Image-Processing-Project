@@ -14,8 +14,7 @@ CarRacing-v3 release.
 ## Related V2 Files
 
 - [V2 README](../README.md)
-- [V2 media notes](../MEDIA.md)
-- [V2 release notes](../RELEASE_NOTES_V2.md)
-- [V2 GitHub release draft](../GITHUB_RELEASE_DRAFT.md)
-- [V2 video manifest](../media/video_manifest.csv)
+- [V2 media notes](../media.md)
+- [V2 release notes](../release_notes_v2.md)
+- [V2 video manifest](../videos/video_manifest.csv)
 - [V2 validation report](../validation/validation_report.md)

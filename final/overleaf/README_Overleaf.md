@@ -53,9 +53,9 @@ Place the compiled PDF at:
 final/report/Image_Processing_Project_V2_IEEE_Report.pdf
 ```
 
-That file is the official final report. Do **not** use the pre-existing
-`NOT_FINAL_TRANSITIONAL_Report.pdf` as the official report — it is an earlier
-single-column draft kept only for reference.
+That file is the official final report. Do **not** use archived DOCX or PDF
+preview material as the official report; those files are kept only for
+traceability.
 
 ## Notes
 

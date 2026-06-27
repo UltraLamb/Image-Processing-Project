@@ -8,10 +8,8 @@ used as downstream evaluation methods on Gymnasium `CarRacing-v3`.
 
 ## Final report and presentation
 
-- Final IEEE-style report PDF: [`report/Image_Processing_Project_V2_IEEE_Report.pdf`](report/Image_Processing_Project_V2_IEEE_Report.pdf)
-  _(final compiled IEEE-style two-column report; LaTeX source in `overleaf/`.)_
-- [Final IEEE-style report DOCX (writing material)](report/Image_Processing_Project_V2_IEEE_Report.docx)
 - [Overleaf / LaTeX package](overleaf/Image_Processing_Project_Overleaf_Package.zip)
+- [Report PDF export instructions](report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md)
 - [Final presentation PDF](slides/Image_Processing_Project_Final_Presentation.pdf)
 - [Final presentation PPTX](slides/Image_Processing_Project_Final_Presentation.pptx)
 
@@ -34,8 +32,7 @@ feature pipeline; only the downstream policy optimization method changes.
 | PPO completed baseline | Completed 500K baseline | 938.87 +/- 7.86 @ 500,000 | 939.53 +/- 4.09 @ 480,000 | 501,760 |
 | SAC fast-result branch | Partial 400K best-checkpoint / fast-result branch | 938.51 +/- 4.88 @ 400,000 | 938.51 +/- 4.88 @ 400,000 | 418,697 |
 
-SAC is not presented as completing 500K, outperforming PPO, or providing a
-compute-equivalent comparison.
+SAC is not presented as completing 500K, outperforming PPO, or providing a compute-equivalent comparison.
 
 ## Image Processing Pipeline
 
@@ -51,8 +48,8 @@ submission.
 
 | Evidence | Path | Purpose |
 | -------- | ---- | ------- |
-| Final report | [`report/`](report/) | Course-facing technical report |
 | Overleaf package | [`overleaf/`](overleaf/) | LaTeX source for the IEEE-style report |
+| Report export instructions | [`report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md`](report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md) | Manual Overleaf PDF export steps |
 | Final slides | [`slides/`](slides/) | Course-facing presentation |
 | PPO notebook | [`notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb`](notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb) | Completed PPO baseline notebook with saved outputs |
 | SAC notebook | [`notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb`](notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb) | SAC fast-result notebook with saved outputs |
@@ -65,7 +62,6 @@ submission.
 | Result summary | [`docs/RESULT_SUMMARY.md`](docs/RESULT_SUMMARY.md) | Main text summary of validated results |
 | Run instructions | [`docs/RUN_INSTRUCTIONS.md`](docs/RUN_INSTRUCTIONS.md) | Reading and inspection guidance |
 | Media notes | [`media.md`](media.md) | Explains visual evidence and video policy |
-| Release draft | [`github_release_draft.md`](github_release_draft.md) | Draft release text only |
 | Validation report | [`validation/validation_report.md`](validation/validation_report.md) | Static package validation |
 
 ## Media and demo videos

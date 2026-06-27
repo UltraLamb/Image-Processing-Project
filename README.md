@@ -41,8 +41,7 @@ presented as outperforming PPO. The project makes no environment-completion clai
 
 **Metric context.** In CarRacing-v3, reward is tied to track-tile coverage with
 a per-frame time penalty, so scores in the 930s should be read as high-return
-evaluation episodes under the saved protocol. This package still does not make
-a general environment-completion or compute-equivalent PPO/SAC claim.
+evaluation episodes under the saved protocol. This package still does not make a general environment-completion or compute-equivalent PPO/SAC claim.
 
 ## Method at a glance
 
@@ -64,8 +63,8 @@ This project package does not include raw-pixel CNN policy training.
 
 | Material | Link |
 | -------- | ---- |
-| Final IEEE-style report (PDF) | [`Image_Processing_Project_V2_IEEE_Report.pdf`](final/report/Image_Processing_Project_V2_IEEE_Report.pdf) |
 | Overleaf / LaTeX package | [`final/overleaf/Image_Processing_Project_Overleaf_Package.zip`](final/overleaf/Image_Processing_Project_Overleaf_Package.zip) |
+| Report PDF export instructions | [`MANUAL_OVERLEAF_EXPORT_REQUIRED.md`](final/report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md) |
 | Final presentation (PDF) | [`final/slides/Image_Processing_Project_Final_Presentation.pdf`](final/slides/Image_Processing_Project_Final_Presentation.pdf) |
 | Final presentation (PPTX) | [`final/slides/Image_Processing_Project_Final_Presentation.pptx`](final/slides/Image_Processing_Project_Final_Presentation.pptx) |
 | PPO notebook | [`final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb`](final/notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb) |
@@ -78,7 +77,7 @@ This project package does not include raw-pixel CNN policy training.
 
 ```text
 final/                 public-facing final package
-  report/              final IEEE-style report (PDF / DOCX)
+  report/              report export instructions
   overleaf/            LaTeX source package for the report
   slides/              final presentation (PPTX / PDF)
   notebooks/           PPO and SAC notebooks with saved outputs
@@ -94,7 +93,8 @@ archive/               preserved history, not the current project package
 ## How to review / reproduce
 
 Start with [`final/README.md`](final/README.md), the
-[result summary](final/docs/RESULT_SUMMARY.md), and the final report. The
+[result summary](final/docs/RESULT_SUMMARY.md), and the
+[report export note](final/report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md). The
 notebooks are kept in safe report/evaluation mode and include saved output
 evidence; they do not require retraining to inspect. Do not rerun training
 unless you intentionally change the project scope.

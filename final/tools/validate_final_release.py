@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Static validation for versions/2026-06-24-ppo-sac-feature-release/.
+Static validation for final/.
 
 This script does not execute notebooks, train models, or regenerate results.
 """
@@ -17,15 +17,15 @@ except Exception:  # pragma: no cover - optional local dependency
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parents[1]
+REPO = ROOT.parent
 RESULTS = []
 
 REQUIRED_FILES = [
     "README.md",
-    "MEDIA.md",
-    "RELEASE_NOTES_V2.md",
-    "GITHUB_RELEASE_DRAFT.md",
-    "report/CarRacing_v3_RL_Report_1103820_REVISED.docx",
+    "media.md",
+    "release_notes_v2.md",
+    "report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md",
+    "overleaf/Image_Processing_Project_Overleaf_Package.zip",
     "notebooks/Final_PPO_Baseline_CarRacing_v3.ipynb",
     "notebooks/Final_SAC_Fast_Result_CarRacing_v3.ipynb",
     "logs/V9_training_500k_log.txt",
@@ -39,7 +39,7 @@ REQUIRED_FILES = [
     "tables/notebook_output_generalization_summary.csv",
     "tables/ppo_eval_checkpoints.csv",
     "tables/sac_eval_checkpoints.csv",
-    "media/video_manifest.csv",
+    "videos/video_manifest.csv",
     "docs/README.md",
     "docs/RESULT_SUMMARY.md",
     "docs/RUN_INSTRUCTIONS.md",
@@ -74,13 +74,13 @@ def markdown_files():
 
 
 def has_negation(line):
-    return bool(re.search(r"\b(not|no|never|without|isn't|doesn't|do not|did not|is not|not claimed)\b", line, re.I))
+    return bool(re.search(r"\b(not|no|never|without|isn't|doesn't|do not|did not|is not|does not|not claimed|not presented|no claim)\b", line, re.I))
 
 
 def unsupported_claims():
     bad = []
     checks = [
-        ("partial-run completion claim", lambda s: ("s" + "ac") in s and ("completed " + "500k") in s and not has_negation(s)),
+        ("partial-run completion claim", lambda s: ("s" + "ac") in s and re.search(r"\bsac\b.{0,40}\bcompleted\s+500k\b", s) and not has_negation(s)),
         ("PPO victory claim", lambda s: ("s" + "ac") in s and "ppo" in s and re.search(r"\b(beats?|beating|outperforms?)\b", s) and not has_negation(s)),
         ("compute-equivalent comparison", lambda s: "compute-equivalent" in s and not has_negation(s)),
         ("raw pixel CNN training claim", lambda s: ("raw-pixel cnn policy " + "was trained") in s and not has_negation(s)),
@@ -166,17 +166,17 @@ def validate_notebooks():
 
 
 def validate_videos():
-    video_dir = ROOT / "media" / "videos"
+    video_dir = ROOT / "videos" / "github_playable"
     videos = sorted(video_dir.glob("*.mp4")) if video_dir.is_dir() else []
-    record(video_dir.is_dir(), "media/videos/ exists", detail_fail="missing")
-    record(len(videos) == 12, "exactly 12 V2 MP4 videos exist", detail_ok=f"{len(videos)} videos", detail_fail=f"{len(videos)} videos")
+    record(video_dir.is_dir(), "videos/github_playable/ exists", detail_fail="missing")
+    record(len(videos) == 12, "exactly 12 final MP4 videos exist", detail_ok=f"{len(videos)} videos", detail_fail=f"{len(videos)} videos")
 
-    manifest = ROOT / "media" / "video_manifest.csv"
+    manifest = ROOT / "videos" / "video_manifest.csv"
     if manifest.is_file():
         with manifest.open(encoding="utf-8", newline="") as handle:
             rows = list(csv.DictReader(handle))
         record(len(rows) == 12, "video manifest has 12 rows", detail_ok="12 rows", detail_fail=f"{len(rows)} rows")
-        missing = [row.get("filename", "") for row in rows if not (ROOT / row.get("filename", "")).is_file()]
+        missing = [row.get("filename", "") for row in rows if not (ROOT / "videos" / row.get("filename", "")).is_file()]
         record(not missing, "video manifest filenames exist", detail_fail=", ".join(missing))
     else:
         record(False, "media/video_manifest.csv exists", detail_fail="missing")
@@ -194,6 +194,7 @@ def write_report():
     n_pass = sum(1 for status, _, _ in RESULTS if status == "PASS")
     n_fail = sum(1 for status, _, _ in RESULTS if status == "FAIL")
     n_nb = sum(1 for status, _, _ in RESULTS if status == "NON-BLOCKING")
+    n_manual = sum(1 for status, _, _ in RESULTS if status == "MANUAL-REQUIRED")
     overall = "FAIL" if n_fail else "PASS"
 
     lines = [
@@ -203,7 +204,7 @@ def write_report():
         "",
         "No notebooks, training, or result generation were executed.",
         "",
-        f"## Overall: **{overall}** ({n_pass} PASS, {n_fail} FAIL, {n_nb} NON-BLOCKING)",
+        f"## Overall: **{overall}** ({n_pass} PASS, {n_fail} FAIL, {n_nb} NON-BLOCKING, {n_manual} MANUAL-REQUIRED)",
         "",
         "| status | check | detail |",
         "| ------ | ----- | ------ |",
@@ -221,7 +222,7 @@ def write_report():
     report = "\n".join(lines) + "\n"
     (ROOT / "validation").mkdir(exist_ok=True)
     (ROOT / "validation" / "validation_report.md").write_text(report, encoding="utf-8")
-    print(f"VALIDATION {overall}: {n_pass} PASS / {n_fail} FAIL / {n_nb} NON-BLOCKING")
+    print(f"VALIDATION {overall}: {n_pass} PASS / {n_fail} FAIL / {n_nb} NON-BLOCKING / {n_manual} MANUAL-REQUIRED")
     return n_fail
 
 
@@ -231,6 +232,12 @@ def main():
 
     for rel in REQUIRED_FILES:
         record((ROOT / rel).is_file(), f"exists: {rel}", detail_fail="missing")
+    record(
+        (ROOT / "report" / "Image_Processing_Project_V2_IEEE_Report.pdf").is_file(),
+        "official report PDF exported from Overleaf",
+        detail_fail="pending manual Overleaf export; see report/MANUAL_OVERLEAF_EXPORT_REQUIRED.md",
+        severity="MANUAL-REQUIRED",
+    )
 
     record(has_real_line_breaks(ROOT / "README.md"), "V2 README.md has real Markdown line breaks", detail_fail="line-break heuristic failed")
     table_issues = markdown_tables_ok()
